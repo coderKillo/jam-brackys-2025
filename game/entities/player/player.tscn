@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://ex6c467fc5hu"]
+
+[ext_resource type="Script" uid="uid://ct0wfkng0uvkm" path="res://game/entities/player/player.gd" id="1_x4rrl"]
+[ext_resource type="Texture2D" uid="uid://c6upae10vp2as" path="res://assets/test/ball-26x26.png" id="2_x4rrl"]
+[ext_resource type="Script" uid="uid://bhnydydo6c60p" path="res://game/entities/player/charge_bar.gd" id="3_oic1i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qe2dj"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ociif"]
+radius = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6icyu"]
+bg_color = Color(0.0923971, 0.0923971, 0.0923971, 0.2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugwa6"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_x4rrl")
+speed = 150.0
+
+[node name="RotationAxis" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="RotationAxis"]
+texture = ExtResource("2_x4rrl")
+
+[node name="BallSlot" type="Node2D" parent="RotationAxis"]
+position = Vector2(20, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qe2dj")
+
+[node name="CollectBallArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectBallArea"]
+shape = SubResource("CircleShape2D_ociif")
+debug_color = Color(0.80607, 0.335778, 0.632973, 0.42)
+
+[node name="ChargeBar" type="ProgressBar" parent="." node_paths=PackedStringArray("player")]
+offset_left = -15.0
+offset_top = 18.0
+offset_right = 15.0
+offset_bottom = 22.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6icyu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ugwa6")
+max_value = 1.0
+value = 0.62
+show_percentage = false
+script = ExtResource("3_oic1i")
+player = NodePath("..")

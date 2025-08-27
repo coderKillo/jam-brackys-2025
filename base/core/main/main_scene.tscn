@@ -1,35 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=15 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
-[ext_resource type="Script" uid="uid://ct0wfkng0uvkm" path="res://game/entities/player/player.gd" id="2_6lyvc"]
-[ext_resource type="Texture2D" uid="uid://cbp7wc1hmrxoh" path="res://assets/test/ball-8x8.png" id="2_h8xxh"]
-[ext_resource type="Texture2D" uid="uid://cufl7dyakpajc" path="res://assets/test/ball-5x5.png" id="3_qe2dj"]
-[ext_resource type="Script" uid="uid://bv2acjca7ih7b" path="res://game/entities/ball/ball.gd" id="4_ociif"]
-[ext_resource type="Script" uid="uid://ckelp87vk38tt" path="res://game/entities/components/trace_line/trace_line.gd" id="5_6icyu"]
+[ext_resource type="PackedScene" uid="uid://ex6c467fc5hu" path="res://game/entities/player/player.tscn" id="3_3p8nd"]
+[ext_resource type="Texture2D" uid="uid://bkvowljdtlyuf" path="res://assets/test/grid-16x8.png" id="3_bicih"]
+[ext_resource type="PackedScene" uid="uid://deh2o03bcjuyk" path="res://game/entities/ball/ball.tscn" id="4_bicih"]
 [ext_resource type="Texture2D" uid="uid://butwuassq1vqn" path="res://assets/test/square-16x16.png" id="5_dn4rf"]
-[ext_resource type="Script" uid="uid://bhnydydo6c60p" path="res://game/entities/player/charge_bar.gd" id="5_ugwa6"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qe2dj"]
-radius = 4.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ociif"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6icyu"]
-bg_color = Color(0.0923971, 0.0923971, 0.0923971, 0.2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugwa6"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Curve" id="Curve_dn4rf"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6lyvc"]
-radius = 2.0
+[ext_resource type="Texture2D" uid="uid://hy1v5rynyhhi" path="res://assets/test/test-tutorial-text.png" id="7_w3pcb"]
+[ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
+[ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
+[ext_resource type="Script" uid="uid://dgw6ydarpusg8" path="res://game/systems/player_controller.gd" id="12_oh5ki"]
+[ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
+[ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
+[ext_resource type="Script" uid="uid://cyw1fm3561v0y" path="res://game/systems/punishment_manager.gd" id="15_es3kw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma400"]
-size = Vector2(16, 16)
+size = Vector2(130.612, 64)
 
 [node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui")]
 layout_mode = 3
@@ -47,76 +33,41 @@ gui = NodePath("CanvasLayer/Gui")
 [node name="World" type="Node2D" parent="."]
 position = Vector2(430, 175)
 
-[node name="Player" type="CharacterBody2D" parent="World"]
-motion_mode = 1
-script = ExtResource("2_6lyvc")
-speed = 150.0
+[node name="Grid" type="Node2D" parent="World"]
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Player"]
-texture = ExtResource("2_h8xxh")
+[node name="Sprite2D" type="Sprite2D" parent="World/Grid"]
+texture = ExtResource("3_bicih")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player"]
-shape = SubResource("CircleShape2D_qe2dj")
+[node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
+position = Vector2(-84, -11)
 
-[node name="CollectBallArea" type="Area2D" parent="World/Player"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Player/CollectBallArea"]
-shape = SubResource("CircleShape2D_ociif")
-debug_color = Color(0.80607, 0.335778, 0.632973, 0.42)
-
-[node name="ChargeBar" type="ProgressBar" parent="World/Player" node_paths=PackedStringArray("player")]
-offset_left = -5.0
-offset_top = 5.0
-offset_right = 5.0
-offset_bottom = 7.0
-theme_override_styles/background = SubResource("StyleBoxFlat_6icyu")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ugwa6")
-max_value = 1.0
-value = 0.62
-show_percentage = false
-script = ExtResource("5_ugwa6")
-player = NodePath("..")
-
-[node name="RotationAxis" type="Node2D" parent="World/Player"]
-
-[node name="BallSlot" type="Node2D" parent="World/Player/RotationAxis"]
-position = Vector2(7, 0)
-
-[node name="Ball" type="CharacterBody2D" parent="World"]
-position = Vector2(28, -3)
-collision_layer = 2
-collision_mask = 3
-script = ExtResource("4_ociif")
-
-[node name="Line2D" type="Line2D" parent="World/Ball" node_paths=PackedStringArray("body")]
-top_level = true
-width = 2.0
-width_curve = SubResource("Curve_dn4rf")
-script = ExtResource("5_6icyu")
-body = NodePath("..")
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Ball"]
-texture = ExtResource("3_qe2dj")
-offset = Vector2(-0.5, -0.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ball"]
-shape = SubResource("CircleShape2D_6lyvc")
+[node name="Ball" parent="World" instance=ExtResource("4_bicih")]
+position = Vector2(49, -19)
 
 [node name="Goal" type="Area2D" parent="World"]
-position = Vector2(90, -2)
+position = Vector2(257, 3)
 scale = Vector2(0.245, 1)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Goal"]
+scale = Vector2(8, 4)
 texture = ExtResource("5_dn4rf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Goal"]
 shape = SubResource("RectangleShape2D_ma400")
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+
+[node name="TutorialText" type="TextureRect" parent="World"]
+visible = false
+modulate = Color(1, 1, 1, 0.564706)
+offset_left = -1.0
+offset_top = -125.0
+offset_right = 255.0
+offset_bottom = 131.0
+texture = ExtResource("7_w3pcb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -130,8 +81,73 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Gui"]
+[node name="StoryOverlay" type="Control" parent="CanvasLayer/Gui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Gui/StoryOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="StoryText" type="RichTextLabel" parent="CanvasLayer/Gui/StoryOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Year: 2012
+
+Some story text that could replace later"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Control" parent="CanvasLayer/Gui"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Gui/Score"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Healt: 100"
+offset_left = -10.0
+offset_top = 10.0
+offset_right = 30.0
+offset_bottom = 25.0
+theme_override_font_sizes/font_size = 20
+text = "2000"
+
+[node name="Managers" type="Node2D" parent="."]
+
+[node name="TutorialManager" type="Node2D" parent="Managers"]
+script = ExtResource("10_ax4ej")
+
+[node name="StoryManager" type="Node2D" parent="Managers"]
+script = ExtResource("11_0h0lk")
+
+[node name="PlayerController" type="Node2D" parent="Managers"]
+script = ExtResource("12_oh5ki")
+
+[node name="TrapManager" type="Node2D" parent="Managers"]
+script = ExtResource("13_4jeu6")
+
+[node name="PowerupManager" type="Node2D" parent="Managers"]
+script = ExtResource("14_gjp0b")
+
+[node name="PunishmentManager" type="Node2D" parent="Managers"]
+script = ExtResource("15_es3kw")
