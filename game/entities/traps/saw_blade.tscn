@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://n86chtsor72e"]
+
+[ext_resource type="Texture2D" uid="uid://c1r0d73q751vx" path="res://assets/test/saw-blade.png" id="1_fo6ej"]
+[ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="1_t2kr2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ax4ej"]
+radius = 12.0
+
+[node name="SawBlade" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollectingPad" parent="." instance=ExtResource("1_t2kr2")]
+
+[node name="CollectingPad2" parent="." instance=ExtResource("1_t2kr2")]
+position = Vector2(0, -32)
+
+[node name="CollectingPad3" parent="." instance=ExtResource("1_t2kr2")]
+position = Vector2(32, 0)
+
+[node name="CollectingPad4" parent="." instance=ExtResource("1_t2kr2")]
+position = Vector2(-32, 0)
+
+[node name="CollectingPad5" parent="." instance=ExtResource("1_t2kr2")]
+position = Vector2(0, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("1_fo6ej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ax4ej")

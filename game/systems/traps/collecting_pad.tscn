@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cyn44oep1wavd"]
+
+[ext_resource type="Script" uid="uid://c6i86qlp8axk" path="res://game/entities/traps/collecting_pad.gd" id="1_3khei"]
+[ext_resource type="Texture2D" uid="uid://dm5a6tyuxh5ni" path="res://assets/test/square-32x32.png" id="2_wrao6"]
+[ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="3_n4jgj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2kr2"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_v5fua"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3khei"]
+gradient = SubResource("Gradient_v5fua")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sjjla"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(16, 16, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_3khei")
+
+[node name="CollectingPad" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_3khei")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wrao6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t2kr2")
+debug_color = Color(0.690238, 0.495679, 0.127335, 0.42)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 12
+texture = ExtResource("3_n4jgj")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_sjjla")

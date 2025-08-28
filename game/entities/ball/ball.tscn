@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://deh2o03bcjuyk"]
+[gd_scene load_steps=7 format=3 uid="uid://deh2o03bcjuyk"]
 
 [ext_resource type="Script" uid="uid://bv2acjca7ih7b" path="res://game/entities/ball/ball.gd" id="1_ln8x8"]
 [ext_resource type="Script" uid="uid://ckelp87vk38tt" path="res://game/entities/components/trace_line/trace_line.gd" id="2_7fep7"]
@@ -11,6 +11,9 @@ point_count = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_6lyvc"]
 radius = 7.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ln8x8"]
+radius = 7.0
+
 [node name="Ball" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
@@ -18,8 +21,9 @@ script = ExtResource("1_ln8x8")
 
 [node name="Line2D" type="Line2D" parent="." node_paths=PackedStringArray("body")]
 top_level = true
-width = 2.0
+width = 6.0
 width_curve = SubResource("Curve_dn4rf")
+default_color = Color(0.964706, 0.803922, 0.14902, 1)
 script = ExtResource("2_7fep7")
 body = NodePath("..")
 
@@ -28,3 +32,11 @@ texture = ExtResource("3_ln8x8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6lyvc")
+
+[node name="TrapDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapDetector"]
+shape = SubResource("CircleShape2D_ln8x8")

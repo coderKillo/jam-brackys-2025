@@ -1,21 +1,50 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=27 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
 [ext_resource type="PackedScene" uid="uid://ex6c467fc5hu" path="res://game/entities/player/player.tscn" id="3_3p8nd"]
+[ext_resource type="Script" uid="uid://df1ukairx6efa" path="res://game/systems/traps/grid.gd" id="3_ax4ej"]
 [ext_resource type="Texture2D" uid="uid://bkvowljdtlyuf" path="res://assets/test/grid-16x8.png" id="3_bicih"]
 [ext_resource type="PackedScene" uid="uid://deh2o03bcjuyk" path="res://game/entities/ball/ball.tscn" id="4_bicih"]
-[ext_resource type="Texture2D" uid="uid://butwuassq1vqn" path="res://assets/test/square-16x16.png" id="5_dn4rf"]
+[ext_resource type="Script" uid="uid://bdgh87rfiuuqj" path="res://game/systems/score/goal.gd" id="6_b46tn"]
+[ext_resource type="Texture2D" uid="uid://k2wc6b6s26fs" path="res://assets/world/goal.png" id="7_b46tn"]
 [ext_resource type="Texture2D" uid="uid://hy1v5rynyhhi" path="res://assets/test/test-tutorial-text.png" id="7_w3pcb"]
+[ext_resource type="PackedScene" uid="uid://n86chtsor72e" path="res://game/entities/traps/saw_blade.tscn" id="8_cyqf4"]
+[ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="10_0h0lk"]
 [ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
+[ext_resource type="Script" uid="uid://dn3slwnlogxvr" path="res://game/gui/selector_overlay.gd" id="11_oh5ki"]
+[ext_resource type="Script" uid="uid://bfpbp0kr8ycty" path="res://game/gui/top_bar.gd" id="12_es3kw"]
+[ext_resource type="Texture2D" uid="uid://7kc142xp73u6" path="res://assets/gui/top-bar.png" id="12_gjp0b"]
 [ext_resource type="Script" uid="uid://dgw6ydarpusg8" path="res://game/systems/player_controller.gd" id="12_oh5ki"]
 [ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
+[ext_resource type="Texture2D" uid="uid://tkrrrksyx70h" path="res://assets/gui/top-bar-marker.png" id="13_es3kw"]
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
 [ext_resource type="Script" uid="uid://cyw1fm3561v0y" path="res://game/systems/punishment_manager.gd" id="15_es3kw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma400"]
-size = Vector2(130.612, 64)
+size = Vector2(9, 58)
+
+[sub_resource type="Gradient" id="Gradient_es3kw"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4jeu6"]
+gradient = SubResource("Gradient_es3kw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b46tn"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 32, 1)
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+gravity = Vector3(100, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_4jeu6")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oh5ki"]
+normal = Vector2(0, 1)
 
 [node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui")]
 layout_mode = 3
@@ -30,44 +59,90 @@ script = ExtResource("1_awp0h")
 level_container = NodePath("World")
 gui = NodePath("CanvasLayer/Gui")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 1)
+
 [node name="World" type="Node2D" parent="."]
-position = Vector2(430, 175)
 
 [node name="Grid" type="Node2D" parent="World"]
+script = ExtResource("3_ax4ej")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Grid"]
 texture = ExtResource("3_bicih")
 
-[node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
-position = Vector2(-84, -11)
-
-[node name="Ball" parent="World" instance=ExtResource("4_bicih")]
-position = Vector2(49, -19)
+[node name="SawBlade" parent="World/Grid" instance=ExtResource("8_cyqf4")]
+position = Vector2(16, 16)
 
 [node name="Goal" type="Area2D" parent="World"]
-position = Vector2(257, 3)
-scale = Vector2(0.245, 1)
+position = Vector2(248, 0)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
+script = ExtResource("6_b46tn")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Goal"]
-scale = Vector2(8, 4)
-texture = ExtResource("5_dn4rf")
+texture = ExtResource("7_b46tn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Goal"]
+position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_ma400")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="World/Goal"]
+position = Vector2(-1, 0)
+emitting = false
+amount = 48
+texture = ExtResource("10_0h0lk")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_b46tn")
+
+[node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
+position = Vector2(-240, 0)
+collision_mask = 12
+shoot_power = 1000.0
+
+[node name="Ball" parent="World" instance=ExtResource("4_bicih")]
+position = Vector2(-175, 0)
+collision_mask = 15
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 
-[node name="TutorialText" type="TextureRect" parent="World"]
+[node name="TutorialSprite" type="Sprite2D" parent="World"]
 visible = false
-modulate = Color(1, 1, 1, 0.564706)
-offset_left = -1.0
-offset_top = -125.0
-offset_right = 255.0
-offset_bottom = 131.0
+position = Vector2(128, 3)
 texture = ExtResource("7_w3pcb")
+
+[node name="Borders" type="StaticBody2D" parent="World"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="World/Borders"]
+position = Vector2(0, -128)
+shape = SubResource("WorldBoundaryShape2D_oh5ki")
+
+[node name="Down" type="CollisionShape2D" parent="World/Borders"]
+position = Vector2(0, 128)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_oh5ki")
+
+[node name="Right" type="CollisionShape2D" parent="World/Borders"]
+position = Vector2(256, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_oh5ki")
+
+[node name="Left" type="CollisionShape2D" parent="World/Borders"]
+position = Vector2(-256, 0)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_oh5ki")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -80,6 +155,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_6icyu")
 
 [node name="StoryOverlay" type="Control" parent="CanvasLayer/Gui"]
 visible = false
@@ -114,6 +190,75 @@ Some story text that could replace later"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SelectorOverlay" type="Control" parent="CanvasLayer/Gui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_oh5ki")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Gui/SelectorOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Gui/SelectorOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer"]
+layout_mode = 2
+
+[node name="ContentLeft" type="ColorRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.964706, 0.803922, 0.14902, 0)
+
+[node name="LeftText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(110, 180)
+size_flags_horizontal = 3
+text = "Place a SAW BLADE"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContentRight" type="ColorRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.964706, 0.803922, 0.14902, 0)
+
+[node name="RightText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(110, 180)
+size_flags_horizontal = 3
+text = "Place a SAW BLADE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Score" type="Control" parent="CanvasLayer/Gui"]
 layout_mode = 1
 anchors_preset = 1
@@ -132,19 +277,67 @@ offset_bottom = 25.0
 theme_override_font_sizes/font_size = 20
 text = "2000"
 
+[node name="TopBar" type="Control" parent="CanvasLayer/Gui" node_paths=PackedStringArray("main")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("12_es3kw")
+main = NodePath("../../..")
+
+[node name="Bar" type="TextureRect" parent="CanvasLayer/Gui/TopBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 32.0
+grow_horizontal = 2
+texture = ExtResource("12_gjp0b")
+
+[node name="Marker" type="TextureRect" parent="CanvasLayer/Gui/TopBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -12.0
+offset_right = -96.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_es3kw")
+
 [node name="Managers" type="Node2D" parent="."]
 
-[node name="TutorialManager" type="Node2D" parent="Managers"]
+[node name="TutorialManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("texture")]
 script = ExtResource("10_ax4ej")
+texture = NodePath("../../World/TutorialSprite")
+texture_resource = Array[Texture]([ExtResource("7_w3pcb")])
 
-[node name="StoryManager" type="Node2D" parent="Managers"]
+[node name="StoryManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("story_overlay")]
 script = ExtResource("11_0h0lk")
+story_overlay = NodePath("../../CanvasLayer/Gui/StoryOverlay")
 
-[node name="PlayerController" type="Node2D" parent="Managers"]
+[node name="PlayerController" type="Node2D" parent="Managers" node_paths=PackedStringArray("player", "ball")]
+position = Vector2(23, -101)
 script = ExtResource("12_oh5ki")
+player = NodePath("../../World/Player")
+player_start_position = Vector2(-240, 0)
+ball = NodePath("../../World/Ball")
+ball_start_position = Vector2(-175, 0)
 
-[node name="TrapManager" type="Node2D" parent="Managers"]
+[node name="TrapManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("grid", "selector_overlay")]
 script = ExtResource("13_4jeu6")
+grid = NodePath("../../World/Grid")
+selector_overlay = NodePath("../../CanvasLayer/Gui/SelectorOverlay")
 
 [node name="PowerupManager" type="Node2D" parent="Managers"]
 script = ExtResource("14_gjp0b")

@@ -1,1 +1,17 @@
+class_name Globals
 extends Node
+
+enum Story { BEGINNING, FIRST_GOAL, NEW_ROUND, WAR, PEACE }
+enum Traps { SAW_BLADE }
+enum GameState { SHOW_STORY, GOLDEN_RUN, SELECT_TRAP, PLACE_TRAP, WAR_RUN, SELECT_POWER_UP }
+
+const STORY_SHOW_TIME = 2.0
+
+const GRID_SIZE = Vector2(16.0, 8.0)
+const CELL_SIZE = 32.0
+
+const BASE_CELL_SCORE = 100
+const ADDITIONAL_CELL_SCORE = 50
+
+const WARS_TILL_FINAL_WAR = 3
+const ROUNDS_TILL_WAR = 3

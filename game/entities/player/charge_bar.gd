@@ -8,6 +8,6 @@ func _ready():
 
 
 func _process(_delta):
-	visible = player.charge > 0.0
-	max_value = player.charge_time
-	value = player.charge
+	visible = player.charge_timer > 0.0
+	max_value = player.max_charge_time
+	value = player.charge_timer

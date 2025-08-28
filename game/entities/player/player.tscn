@@ -14,7 +14,7 @@ radius = 24.0
 bg_color = Color(0.0923971, 0.0923971, 0.0923971, 0.2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugwa6"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.964706, 0.803922, 0.14902, 1)
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1

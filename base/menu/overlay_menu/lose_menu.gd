@@ -12,5 +12,5 @@ func _on_main_menu_pressed():
 
 
 func _on_restart_pressed():
-	SceneManager.reload_level()
+	SceneManager.load_game_scene()
 	close()
