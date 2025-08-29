@@ -2,6 +2,7 @@ class_name Ball
 extends CharacterBody2D
 
 @onready var detector: Area2D = $TrapDetector
+@onready var trap_detector_shape: CollisionShape2D = $TrapDetector/CollisionShape2D
 
 var attached := true
 var combo = 0
@@ -17,5 +18,11 @@ func _physics_process(delta):
 		velocity = velocity.bounce(collision.get_normal())
 
 
+func disable(value: bool):
+	visible = not value
+	trap_detector_shape.set_deferred("disabled", value)
+
+
 func _on_trap_entered(_area):
+	Events.ball_died.emit(global_position)
 	Events.level_lose.emit()

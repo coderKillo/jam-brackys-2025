@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvm8aoo8xb6an"]
+[gd_scene load_steps=7 format=3 uid="uid://dvm8aoo8xb6an"]
 
 [ext_resource type="Script" uid="uid://dk4r15rsdgfso" path="res://base/menu/overlay_menu/lose_menu.gd" id="1_l4nqj"]
+[ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_osi2r"]
+[ext_resource type="Shader" uid="uid://dhkt5tqo13j3y" path="res://game/shaders/wave_text.gdshader" id="3_osi2r"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4nqj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_osi2r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddyh2"]
+shader = ExtResource("3_osi2r")
+shader_parameter/wave_amplitude = 0.0
+shader_parameter/wave_frequency = 140.0
+shader_parameter/movement_speed = 2.0
+shader_parameter/movement_amplitude = 5.0
 
 [node name="LoseMenu" type="Control"]
 process_mode = 3
@@ -10,6 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_osi2r")
 script = ExtResource("1_l4nqj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -32,6 +46,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_l4nqj")
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -42,18 +57,45 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_osi2r")
 layout_mode = 2
-text = "You died!"
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -4
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "The Golden ball 
+shell never be shattered! "
 horizontal_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "
+theme_override_constants/separation = 5
+alignment = 1
 
-"
-fit_content = true
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "Score:"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ddyh2")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "100000"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -63,10 +105,12 @@ theme_override_constants/separation = 50
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
 text = "Main Menu"
 
 [node name="Restart" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
 text = "Restart"

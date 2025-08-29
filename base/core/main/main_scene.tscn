@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=41 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
@@ -9,18 +9,28 @@
 [ext_resource type="Script" uid="uid://bdgh87rfiuuqj" path="res://game/systems/score/goal.gd" id="6_b46tn"]
 [ext_resource type="Texture2D" uid="uid://k2wc6b6s26fs" path="res://assets/world/goal.png" id="7_b46tn"]
 [ext_resource type="Texture2D" uid="uid://hy1v5rynyhhi" path="res://assets/test/test-tutorial-text.png" id="7_w3pcb"]
-[ext_resource type="PackedScene" uid="uid://n86chtsor72e" path="res://game/entities/traps/saw_blade.tscn" id="8_cyqf4"]
 [ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="10_0h0lk"]
 [ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
+[ext_resource type="Shader" uid="uid://cfi56m878cu67" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
 [ext_resource type="Script" uid="uid://dn3slwnlogxvr" path="res://game/gui/selector_overlay.gd" id="11_oh5ki"]
+[ext_resource type="Script" uid="uid://cjuufqj5di8ta" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
+[ext_resource type="Script" uid="uid://0o2ea28lxjg2" path="res://game/gui/score.gd" id="12_c8pys"]
 [ext_resource type="Script" uid="uid://bfpbp0kr8ycty" path="res://game/gui/top_bar.gd" id="12_es3kw"]
 [ext_resource type="Texture2D" uid="uid://7kc142xp73u6" path="res://assets/gui/top-bar.png" id="12_gjp0b"]
+[ext_resource type="Shader" uid="uid://dahjfv2vy6nc4" path="res://game/shaders/cracked.gdshader" id="12_htuni"]
 [ext_resource type="Script" uid="uid://dgw6ydarpusg8" path="res://game/systems/player_controller.gd" id="12_oh5ki"]
 [ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
+[ext_resource type="Shader" uid="uid://daj43aai0hwot" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
 [ext_resource type="Texture2D" uid="uid://tkrrrksyx70h" path="res://assets/gui/top-bar-marker.png" id="13_es3kw"]
+[ext_resource type="Texture2D" uid="uid://cvbykowaaq7ay" path="res://assets/gui/space.png" id="13_l3rmk"]
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
+[ext_resource type="Texture2D" uid="uid://d4b7cw2qqtm4l" path="res://assets/gui/glass.png" id="14_hhr1e"]
 [ext_resource type="Script" uid="uid://cyw1fm3561v0y" path="res://game/systems/punishment_manager.gd" id="15_es3kw"]
+[ext_resource type="Texture2D" uid="uid://cdcvdhcp3ksk5" path="res://assets/gui/frame.png" id="16_slhpv"]
+[ext_resource type="Texture2D" uid="uid://bmgykh2gud76x" path="res://assets/tutorial/tutorial1.png" id="23_cgvbc"]
+[ext_resource type="Texture2D" uid="uid://c4giskxr532jr" path="res://assets/tutorial/tutorial2.png" id="24_kyaiq"]
+[ext_resource type="Texture2D" uid="uid://b1s0gaxdeq7jw" path="res://assets/tutorial/tutorial3.png" id="25_kyaiq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma400"]
 size = Vector2(9, 58)
@@ -43,10 +53,43 @@ scale_min = 2.0
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_4jeu6")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b46tn"]
+radius = 4.0
+height = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htuni"]
+shader = ExtResource("11_eb0yd")
+shader_parameter/slice_center = Vector2(0.5, 0.5)
+shader_parameter/slice_angle = 0.0
+shader_parameter/slice_distance = 0.0
+shader_parameter/pixel_size = 1.0
+shader_parameter/expansion_factor = 0.5
+shader_parameter/border_color = Vector4(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eb0yd"]
+shader = ExtResource("12_htuni")
+shader_parameter/pixel_size = 256.0
+shader_parameter/crack_depth = 0.337
+shader_parameter/crack_scale = 4.0
+shader_parameter/crack_zebra_scale = 0.251
+shader_parameter/crack_zebra_amp = 0.0
+shader_parameter/crack_profile = 0.775
+shader_parameter/crack_slope = 10.674
+shader_parameter/crack_width = 0.0
+shader_parameter/refraction_offset = Vector2(34.05, 16)
+shader_parameter/reflection_offset = Vector2(-0.005, -0.005)
+shader_parameter/reflection_color = Color(0.964706, 0.803922, 0.14902, 0.290196)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hhr1e"]
+shader = ExtResource("13_57fuq")
+shader_parameter/refractionOffset = Vector2(32, 32)
+shader_parameter/reflectionOffset = Vector2(3, 3)
+shader_parameter/reflectionColor = Color(0.964706, 0.803922, 0.14902, 0.619608)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oh5ki"]
 normal = Vector2(0, 1)
 
-[node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui")]
+[node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui", "goal")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,6 +101,11 @@ theme = ExtResource("1_6icyu")
 script = ExtResource("1_awp0h")
 level_container = NodePath("World")
 gui = NodePath("CanvasLayer/Gui")
+goal = NodePath("World/Goal")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(1, 0.571068, 0.508893, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -78,9 +126,6 @@ script = ExtResource("3_ax4ej")
 [node name="Sprite2D" type="Sprite2D" parent="World/Grid"]
 texture = ExtResource("3_bicih")
 
-[node name="SawBlade" parent="World/Grid" instance=ExtResource("8_cyqf4")]
-position = Vector2(16, 16)
-
 [node name="Goal" type="Area2D" parent="World"]
 position = Vector2(248, 0)
 collision_layer = 0
@@ -96,7 +141,6 @@ position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_ma400")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="World/Goal"]
-position = Vector2(-1, 0)
 emitting = false
 amount = 48
 texture = ExtResource("10_0h0lk")
@@ -105,19 +149,64 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_b46tn")
 
+[node name="Pillar" type="StaticBody2D" parent="World/Goal"]
+position = Vector2(0, -29)
+rotation = 1.5708
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Goal/Pillar"]
+shape = SubResource("CapsuleShape2D_b46tn")
+
+[node name="Pillar2" type="StaticBody2D" parent="World/Goal"]
+position = Vector2(0, 30)
+rotation = 1.5708
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Goal/Pillar2"]
+shape = SubResource("CapsuleShape2D_b46tn")
+
 [node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
-position = Vector2(-240, 0)
+position = Vector2(-232, 0)
 collision_mask = 12
-shoot_power = 1000.0
+speed = 300.0
+shoot_power = 1500.0
 
 [node name="Ball" parent="World" instance=ExtResource("4_bicih")]
 position = Vector2(-175, 0)
 collision_mask = 15
 
 [node name="Camera2D" type="Camera2D" parent="World"]
+material = SubResource("ShaderMaterial_htuni")
+script = ExtResource("12_5r02l")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="World/Camera2D"]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="World/Camera2D/CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_eb0yd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="World/Camera2D/CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_hhr1e")
+offset_left = -327.0
+offset_top = -183.0
+offset_right = 313.0
+offset_bottom = 177.0
+texture = ExtResource("14_hhr1e")
 
 [node name="TutorialSprite" type="Sprite2D" parent="World"]
 visible = false
+z_index = 2
 position = Vector2(128, 3)
 texture = ExtResource("7_w3pcb")
 
@@ -144,6 +233,10 @@ position = Vector2(-256, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_oh5ki")
 
+[node name="Frame" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("16_slhpv")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -156,39 +249,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_6icyu")
-
-[node name="StoryOverlay" type="Control" parent="CanvasLayer/Gui"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Gui/StoryOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="StoryText" type="RichTextLabel" parent="CanvasLayer/Gui/StoryOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Year: 2012
-
-Some story text that could replace later"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="SelectorOverlay" type="Control" parent="CanvasLayer/Gui"]
 visible = false
@@ -259,23 +319,91 @@ text = "Place a SAW BLADE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Control" parent="CanvasLayer/Gui"]
+[node name="StoryOverlay" type="Control" parent="CanvasLayer/Gui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Gui/StoryOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="StoryText" type="RichTextLabel" parent="CanvasLayer/Gui/StoryOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Year: 2012
+
+Some story text that could replace later"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skip" type="HBoxContainer" parent="CanvasLayer/Gui/StoryOverlay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Gui/StoryOverlay/Skip"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("13_l3rmk")
+
+[node name="Label" type="Label" parent="CanvasLayer/Gui/StoryOverlay/Skip"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
+text = "SKIP"
+
+[node name="Score" type="Control" parent="CanvasLayer/Gui" node_paths=PackedStringArray("main")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
+offset_left = -122.0
+offset_right = -22.0
 offset_bottom = 40.0
 grow_horizontal = 0
+script = ExtResource("12_c8pys")
+main = NodePath("../../..")
 
 [node name="Label" type="Label" parent="CanvasLayer/Gui/Score"]
-layout_mode = 0
-offset_left = -10.0
-offset_top = 10.0
-offset_right = 30.0
-offset_bottom = 25.0
-theme_override_font_sizes/font_size = 20
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -9.5
+offset_bottom = 9.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
+theme_override_font_sizes/font_size = 32
 text = "2000"
+horizontal_alignment = 2
 
 [node name="TopBar" type="Control" parent="CanvasLayer/Gui" node_paths=PackedStringArray("main")]
 layout_mode = 1
@@ -320,7 +448,7 @@ texture = ExtResource("13_es3kw")
 [node name="TutorialManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("texture")]
 script = ExtResource("10_ax4ej")
 texture = NodePath("../../World/TutorialSprite")
-texture_resource = Array[Texture]([ExtResource("7_w3pcb")])
+texture_resource = Array[Texture]([ExtResource("23_cgvbc"), ExtResource("24_kyaiq"), ExtResource("25_kyaiq")])
 
 [node name="StoryManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("story_overlay")]
 script = ExtResource("11_0h0lk")

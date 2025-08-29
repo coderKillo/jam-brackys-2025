@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ct0xnxm8um68l"]
+
+[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_eu6mr"]
+[ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="2_3usjk"]
+[ext_resource type="Texture2D" uid="uid://qr3ugrd47k7k" path="res://assets/traps/spikes.png" id="3_eu6mr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3usjk"]
+size = Vector2(28, 13.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rv211"]
+size = Vector2(32, 4)
+
+[node name="SawBlade" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_eu6mr")
+
+[node name="CollectingPad" parent="." instance=ExtResource("2_3usjk")]
+
+[node name="CollectingPad2" parent="." instance=ExtResource("2_3usjk")]
+position = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.75)
+shape = SubResource("RectangleShape2D_3usjk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_eu6mr")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_rv211")

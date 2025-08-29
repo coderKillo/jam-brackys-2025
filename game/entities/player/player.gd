@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var ball_collect: Area2D = $CollectBallArea
 @onready var ball_slot: Node2D = $RotationAxis/BallSlot
 @onready var rotation_axis: Node2D = $RotationAxis
+@onready var detector: Area2D = $TrapDetector
+@onready var trap_detector_shape: CollisionShape2D = $TrapDetector/CollisionShape2D
 
 var ball: Ball
 var charge_timer: float = 0.0
@@ -18,6 +20,7 @@ var _is_charging: bool = false
 
 func _ready():
 	ball_collect.body_entered.connect(_on_ball_entered)
+	detector.area_entered.connect(_on_trap_entered)
 
 
 func _process(delta):
@@ -64,6 +67,11 @@ func charge():
 	_is_charging = true
 
 
+func disable(value: bool):
+	visible = not value
+	trap_detector_shape.set_deferred("disabled", value)
+
+
 func _update_charge(delta):
 	if not _is_charging:
 		return
@@ -76,3 +84,8 @@ func _update_ball():
 	if not is_instance_valid(ball):
 		return
 	ball.global_position = ball_slot.global_position
+
+
+func _on_trap_entered(_area):
+	Events.ball_died.emit(global_position)
+	Events.level_lose.emit()

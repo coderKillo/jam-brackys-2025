@@ -1,15 +1,67 @@
-[gd_scene load_steps=4 format=3 uid="uid://n86chtsor72e"]
+[gd_scene load_steps=12 format=3 uid="uid://n86chtsor72e"]
 
-[ext_resource type="Texture2D" uid="uid://c1r0d73q751vx" path="res://assets/test/saw-blade.png" id="1_fo6ej"]
+[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_og2xv"]
 [ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="1_t2kr2"]
+[ext_resource type="Texture2D" uid="uid://dp41c4lvsbh1y" path="res://assets/traps/saw-blade-sheet.png" id="2_t2kr2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax4ej"]
 radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_og2xv"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5fua"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjjla"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50iwa"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gr54"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpgsa"]
+atlas = ExtResource("2_t2kr2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jxr2d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_og2xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5fua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjjla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50iwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gr54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpgsa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="SawBlade" type="Area2D"]
 collision_layer = 4
 collision_mask = 0
 monitoring = false
+script = ExtResource("1_og2xv")
 
 [node name="CollectingPad" parent="." instance=ExtResource("1_t2kr2")]
 
@@ -25,9 +77,11 @@ position = Vector2(-32, 0)
 [node name="CollectingPad5" parent="." instance=ExtResource("1_t2kr2")]
 position = Vector2(0, 32)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
-texture = ExtResource("1_fo6ej")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ax4ej")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_jxr2d")
+autoplay = "default"
+frame_progress = 0.437474

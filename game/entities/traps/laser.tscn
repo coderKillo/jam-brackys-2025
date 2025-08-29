@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3yuus6iviuat"]
+
+[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_v2jb7"]
+[ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="2_pfp4t"]
+[ext_resource type="Texture2D" uid="uid://drpo52yu5oogp" path="res://assets/traps/laser_ready.png" id="3_uko7l"]
+[ext_resource type="Texture2D" uid="uid://dgkrk66uar0vv" path="res://assets/traps/laser.png" id="4_eehib"]
+[ext_resource type="Texture2D" uid="uid://c6j5outs3nmwy" path="res://assets/traps/laser_gun.png" id="5_le1ai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyag3"]
+size = Vector2(5, 513)
+
+[sub_resource type="Animation" id="Animation_loyts"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("laser_off:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("laser_on:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7sefm"]
+resource_name = "moving"
+length = 2.0
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_uko7l"]
+resource_name = "shoot"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("laser_off:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.00105, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("laser_on:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fe5ux"]
+_data = {
+&"RESET": SubResource("Animation_loyts"),
+&"moving": SubResource("Animation_7sefm"),
+&"shoot": SubResource("Animation_uko7l")
+}
+
+[node name="Laser" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_v2jb7")
+
+[node name="CollectingPad" parent="." instance=ExtResource("2_pfp4t")]
+
+[node name="CollectingPad2" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -32)
+
+[node name="CollectingPad3" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -64)
+
+[node name="CollectingPad4" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -96)
+
+[node name="CollectingPad5" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -128)
+
+[node name="CollectingPad6" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -160)
+
+[node name="CollectingPad7" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -192)
+
+[node name="CollectingPad8" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -224)
+
+[node name="CollectingPad9" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -256)
+
+[node name="CollectingPad10" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -288)
+
+[node name="CollectingPad11" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -320)
+
+[node name="CollectingPad12" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -352)
+
+[node name="CollectingPad13" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -384)
+
+[node name="CollectingPad14" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -416)
+
+[node name="CollectingPad15" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -448)
+
+[node name="CollectingPad16" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -480)
+
+[node name="CollectingPad17" parent="." instance=ExtResource("2_pfp4t")]
+position = Vector2(0, -512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -240.5)
+shape = SubResource("RectangleShape2D_xyag3")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fe5ux")
+}
+autoplay = "shoot"
+
+[node name="laser_off" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -241)
+scale = Vector2(1, 16)
+texture = ExtResource("3_uko7l")
+
+[node name="laser_on" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, -241)
+scale = Vector2(1, 16)
+texture = ExtResource("4_eehib")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("5_le1ai")

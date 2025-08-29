@@ -5,6 +5,8 @@ extends Node
 var main: Main
 var current_level: Node
 
+var game_paused := false
+
 
 func _ready():
 	Events.level_won.connect(_on_game_won)
@@ -13,7 +15,11 @@ func _ready():
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("ui_cancel"):
-		_pause_game()
+		if not game_paused:
+			game_paused = true
+			_pause_game()
+		else:
+			game_paused = false
 
 
 func load_game_scene():

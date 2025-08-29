@@ -25,7 +25,7 @@ scale_min = 2.0
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_3khei")
 
-[node name="CollectingPad" type="Area2D"]
+[node name="CollectingPad" type="Area2D" groups=["pads"]]
 collision_layer = 0
 collision_mask = 2
 monitorable = false

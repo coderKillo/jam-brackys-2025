@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv2acjca7ih7b" path="res://game/entities/ball/ball.gd" id="1_ln8x8"]
 [ext_resource type="Script" uid="uid://ckelp87vk38tt" path="res://game/entities/components/trace_line/trace_line.gd" id="2_7fep7"]
-[ext_resource type="Texture2D" uid="uid://drv8ib71w6627" path="res://assets/test/ball-14x14.png" id="3_ln8x8"]
+[ext_resource type="Texture2D" uid="uid://cbs0pmerny7gd" path="res://assets/entities/ball.png" id="3_ln8x8"]
 
 [sub_resource type="Curve" id="Curve_dn4rf"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

@@ -13,6 +13,10 @@ func _ready():
 
 
 func _process(_delta):
+	if body.velocity == Vector2.ZERO:
+		clear_points()
+		add_point(body.global_position)
+
 	distance_sum += points[-1].distance_to(body.global_position)
 
 	if distance_sum >= point_spacing:

@@ -1,3 +1,4 @@
+class_name PlayerController
 extends Node2D
 
 @export var player: Player
@@ -24,3 +25,18 @@ func reset_position():
 	player.global_position = player_start_position
 	ball.global_position = ball_start_position
 	ball.combo = 0
+
+
+func active_player(active: bool):
+	if active:
+		reset_position()
+		ball.disable(false)
+		player.disable(false)
+		set_process(true)
+	else:
+		set_process(false)
+		ball.disable(true)
+		player.disable(true)
+		ball.velocity = Vector2.ZERO
+		player.velocity = Vector2.ZERO
+		player.direction = Vector2.ZERO

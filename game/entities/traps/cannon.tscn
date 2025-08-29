@@ -1,0 +1,175 @@
+[gd_scene load_steps=11 format=3 uid="uid://fw5kmhq5amqb"]
+
+[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_pmdkk"]
+[ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="2_33gqw"]
+[ext_resource type="Texture2D" uid="uid://dy3558ph7ktry" path="res://assets/traps/cannon_sprite_sheet.png" id="3_y7jw1"]
+[ext_resource type="Texture2D" uid="uid://1rm5kaipi7aj" path="res://assets/traps/cannon_ball.png" id="4_pmdkk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyag3"]
+
+[sub_resource type="Animation" id="Animation_loyts"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ball:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ball/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ball:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_7sefm"]
+resource_name = "moving"
+length = 2.0
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_uko7l"]
+resource_name = "shoot"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0, 4, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.25, 0, 6, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1, 1.1, 1.2, 1.3, 1.4, 1.5)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ball:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ball/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ball:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.39952, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -5), Vector2(0, -512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fe5ux"]
+_data = {
+&"RESET": SubResource("Animation_loyts"),
+&"moving": SubResource("Animation_7sefm"),
+&"shoot": SubResource("Animation_uko7l")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7jw1"]
+radius = 6.08276
+
+[node name="Cannon" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_pmdkk")
+
+[node name="CollectingPad" parent="." instance=ExtResource("2_33gqw")]
+
+[node name="CollectingPad2" parent="." instance=ExtResource("2_33gqw")]
+position = Vector2(0, -32)
+
+[node name="CollectingPad3" parent="." instance=ExtResource("2_33gqw")]
+position = Vector2(0, -64)
+
+[node name="CollectingPad4" parent="." instance=ExtResource("2_33gqw")]
+position = Vector2(0, -96)
+
+[node name="CollectingPad5" parent="." instance=ExtResource("2_33gqw")]
+position = Vector2(0, -128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xyag3")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fe5ux")
+}
+autoplay = "shoot"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_y7jw1")
+hframes = 7
+frame = 1
+
+[node name="Ball" type="Area2D" parent="."]
+position = Vector2(0, -5)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+visible = false
+texture = ExtResource("4_pmdkk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_y7jw1")
+disabled = true

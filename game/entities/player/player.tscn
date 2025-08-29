@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ex6c467fc5hu"]
+[gd_scene load_steps=9 format=3 uid="uid://ex6c467fc5hu"]
 
 [ext_resource type="Script" uid="uid://ct0wfkng0uvkm" path="res://game/entities/player/player.gd" id="1_x4rrl"]
 [ext_resource type="Texture2D" uid="uid://c6upae10vp2as" path="res://assets/test/ball-26x26.png" id="2_x4rrl"]
@@ -15,6 +15,9 @@ bg_color = Color(0.0923971, 0.0923971, 0.0923971, 0.2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugwa6"]
 bg_color = Color(0.964706, 0.803922, 0.14902, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x4rrl"]
+radius = 11.0
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -53,3 +56,11 @@ value = 0.62
 show_percentage = false
 script = ExtResource("3_oic1i")
 player = NodePath("..")
+
+[node name="TrapDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapDetector"]
+shape = SubResource("CircleShape2D_x4rrl")
