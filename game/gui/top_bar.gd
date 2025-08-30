@@ -21,7 +21,6 @@ func _on_game_state_changed(_state):
 		return
 
 	var x_pos = _start_position.x + main.total_rounds() * GAB_SIZE
-	print(main.total_rounds())
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(marker, "position:x", x_pos, 2.0).set_ease(Tween.EASE_IN_OUT)
