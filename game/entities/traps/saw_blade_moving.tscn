@@ -134,7 +134,7 @@ z_index = 1
 scale = Vector2(0.25, 4)
 texture = ExtResource("2_8byql")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["saw_punishment"]]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_ax4ej")
 

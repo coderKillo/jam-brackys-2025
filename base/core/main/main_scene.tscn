@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=47 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
@@ -6,9 +6,13 @@
 [ext_resource type="Script" uid="uid://df1ukairx6efa" path="res://game/systems/traps/grid.gd" id="3_ax4ej"]
 [ext_resource type="Texture2D" uid="uid://bkvowljdtlyuf" path="res://assets/test/grid-16x8.png" id="3_bicih"]
 [ext_resource type="PackedScene" uid="uid://deh2o03bcjuyk" path="res://game/entities/ball/ball.tscn" id="4_bicih"]
+[ext_resource type="PackedScene" uid="uid://ct0xnxm8um68l" path="res://game/entities/traps/spikes.tscn" id="5_7yyto"]
 [ext_resource type="Script" uid="uid://bdgh87rfiuuqj" path="res://game/systems/score/goal.gd" id="6_b46tn"]
+[ext_resource type="PackedScene" uid="uid://baoa1h2p3uneu" path="res://game/entities/traps/saw_blade_moving.tscn" id="6_bajmv"]
 [ext_resource type="Texture2D" uid="uid://k2wc6b6s26fs" path="res://assets/world/goal.png" id="7_b46tn"]
+[ext_resource type="PackedScene" uid="uid://b7imyniksx0en" path="res://game/entities/traps/saw_blade_rotating.tscn" id="7_tjkco"]
 [ext_resource type="Texture2D" uid="uid://hy1v5rynyhhi" path="res://assets/test/test-tutorial-text.png" id="7_w3pcb"]
+[ext_resource type="PackedScene" uid="uid://fw5kmhq5amqb" path="res://game/entities/traps/cannon.tscn" id="8_4x2xe"]
 [ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="10_0h0lk"]
 [ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
@@ -27,6 +31,7 @@
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
 [ext_resource type="Texture2D" uid="uid://d4b7cw2qqtm4l" path="res://assets/gui/glass.png" id="14_hhr1e"]
 [ext_resource type="Script" uid="uid://cyw1fm3561v0y" path="res://game/systems/punishment_manager.gd" id="15_es3kw"]
+[ext_resource type="Texture2D" uid="uid://f2g0m61ifqq1" path="res://assets/world/wall.png" id="16_jug8x"]
 [ext_resource type="Texture2D" uid="uid://cdcvdhcp3ksk5" path="res://assets/gui/frame.png" id="16_slhpv"]
 [ext_resource type="Texture2D" uid="uid://bmgykh2gud76x" path="res://assets/tutorial/tutorial1.png" id="23_cgvbc"]
 [ext_resource type="Texture2D" uid="uid://c4giskxr532jr" path="res://assets/tutorial/tutorial2.png" id="24_kyaiq"]
@@ -84,10 +89,13 @@ shader_parameter/reflection_color = Color(0.964706, 0.803922, 0.14902, 0.290196)
 shader = ExtResource("13_57fuq")
 shader_parameter/refractionOffset = Vector2(32, 32)
 shader_parameter/reflectionOffset = Vector2(3, 3)
-shader_parameter/reflectionColor = Color(0.964706, 0.803922, 0.14902, 0.619608)
+shader_parameter/reflectionColor = Color(0.96, 0.7968, 0.144, 0.588235)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oh5ki"]
 normal = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jug8x"]
+size = Vector2(510, 64)
 
 [node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui", "goal")]
 layout_mode = 3
@@ -125,6 +133,18 @@ script = ExtResource("3_ax4ej")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Grid"]
 texture = ExtResource("3_bicih")
+
+[node name="SawBlade" parent="World/Grid" instance=ExtResource("5_7yyto")]
+position = Vector2(-16, 16)
+
+[node name="SawBlade2" parent="World/Grid" instance=ExtResource("6_bajmv")]
+position = Vector2(-109, -55)
+
+[node name="SawBlade3" parent="World/Grid" instance=ExtResource("7_tjkco")]
+position = Vector2(133, -40)
+
+[node name="Cannon" parent="World/Grid" instance=ExtResource("8_4x2xe")]
+position = Vector2(35, 92)
 
 [node name="Goal" type="Area2D" parent="World"]
 position = Vector2(248, 0)
@@ -174,7 +194,7 @@ speed = 300.0
 shoot_power = 1500.0
 
 [node name="Ball" parent="World" instance=ExtResource("4_bicih")]
-position = Vector2(-175, 0)
+position = Vector2(-192, 0)
 collision_mask = 15
 
 [node name="Camera2D" type="Camera2D" parent="World"]
@@ -233,7 +253,52 @@ position = Vector2(-256, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_oh5ki")
 
+[node name="Punishments" type="Node2D" parent="World"]
+
+[node name="SmallRoomTop" type="Node2D" parent="World/Punishments"]
+visible = false
+position = Vector2(0, -96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Punishments/SmallRoomTop"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SmallRoomTop/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_jug8x")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SmallRoomTop"]
+z_index = 2
+texture = ExtResource("16_jug8x")
+
+[node name="SmallRoomBottom" type="Node2D" parent="World/Punishments"]
+visible = false
+position = Vector2(0, 96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Punishments/SmallRoomBottom"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SmallRoomBottom/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_jug8x")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SmallRoomBottom"]
+z_index = 2
+texture = ExtResource("16_jug8x")
+
+[node name="SpikeWallArray" type="Node2D" parent="World/Punishments"]
+
+[node name="SpikeSquishArray" type="Node2D" parent="World/Punishments"]
+
+[node name="CannonArray" type="Node2D" parent="World/Punishments"]
+
+[node name="LaserArray" type="Node2D" parent="World/Punishments"]
+
 [node name="Frame" type="Sprite2D" parent="."]
+visible = false
 z_index = 2
 texture = ExtResource("16_slhpv")
 
@@ -470,5 +535,7 @@ selector_overlay = NodePath("../../CanvasLayer/Gui/SelectorOverlay")
 [node name="PowerupManager" type="Node2D" parent="Managers"]
 script = ExtResource("14_gjp0b")
 
-[node name="PunishmentManager" type="Node2D" parent="Managers"]
+[node name="PunishmentManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("small_room_top", "small_room_bottom")]
 script = ExtResource("15_es3kw")
+small_room_top = NodePath("../../World/Punishments/SmallRoomTop")
+small_room_bottom = NodePath("../../World/Punishments/SmallRoomBottom")

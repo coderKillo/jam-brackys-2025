@@ -36,6 +36,9 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 pads=""
+spikes=""
+spikes_punishment=""
+saw_punishment=""
 
 [gui]
 

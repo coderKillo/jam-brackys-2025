@@ -77,10 +77,10 @@ position = Vector2(-32, 0)
 [node name="CollectingPad5" parent="." instance=ExtResource("1_t2kr2")]
 position = Vector2(0, 32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["saw_punishment"]]
 shape = SubResource("CircleShape2D_ax4ej")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["saw_punishment"]]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_jxr2d")
 autoplay = "default"

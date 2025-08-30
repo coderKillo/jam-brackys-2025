@@ -163,14 +163,14 @@ position = Vector2(0, -1.49012e-08)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ah2fn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Axis"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Axis" groups=["saw_punishment"]]
 z_index = 1
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_jxr2d")
 autoplay = "default"
 frame_progress = 0.305893
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Axis"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Axis" groups=["saw_punishment"]]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_ax4ej")
 

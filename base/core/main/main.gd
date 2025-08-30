@@ -65,6 +65,7 @@ func _set_game_state(value: Globals.GameState):
 		Globals.GameState.WAR_RUN:
 			canves_modulate.show()
 			trap_manager.reset_pads()
+			punishment_manager.start_random_punishment()
 			await story_manager.show_story(Globals.Story.WAR)
 			player_controller.active_player(true)
 
@@ -75,6 +76,7 @@ func _set_game_state(value: Globals.GameState):
 			trap_manager.select_trap(total_rounds())
 
 		Globals.GameState.SELECT_POWER_UP:
+			await story_manager.show_story(Globals.Story.PEACE)
 			trap_manager.set_process(true)
 			trap_manager.select_trap(total_rounds())
 
@@ -99,6 +101,7 @@ func _on_ball_scored():
 		await story_manager.show_story(Globals.Story.FIRST_GOAL)
 
 	if _current_game_state == Globals.GameState.WAR_RUN:
+		punishment_manager.end_current_punishment()
 		_set_game_state(Globals.GameState.SELECT_POWER_UP)
 	else:
 		_set_game_state(Globals.GameState.SELECT_TRAP)

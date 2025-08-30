@@ -10,7 +10,7 @@ size = Vector2(28, 13.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rv211"]
 size = Vector2(32, 4)
 
-[node name="SawBlade" type="Area2D"]
+[node name="SawBlade" type="Area2D" groups=["spikes"]]
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -27,6 +27,18 @@ shape = SubResource("RectangleShape2D_3usjk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
+texture = ExtResource("3_eu6mr")
+
+[node name="BacksideCollisionShape2D" type="CollisionShape2D" parent="." groups=["spikes_punishment"]]
+position = Vector2(0, 29)
+shape = SubResource("RectangleShape2D_3usjk")
+disabled = true
+
+[node name="BacksideSprite" type="Sprite2D" parent="." groups=["spikes_punishment"]]
+visible = false
+z_index = 1
+position = Vector2(0, 32)
+rotation = 3.14159
 texture = ExtResource("3_eu6mr")
 
 [node name="Wall" type="StaticBody2D" parent="."]
