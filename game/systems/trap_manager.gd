@@ -179,7 +179,7 @@ func _get_trap_text(trap: Globals.Traps, direction: String):
 func _cell_occupied() -> bool:
 	var mouse_position := get_global_mouse_position()
 	if (
-		mouse_position.x < -256
+		mouse_position.x < -160
 		or mouse_position.x > 256
 		or mouse_position.y > 128
 		or mouse_position.y < -128

@@ -6,7 +6,10 @@ func _ready():
 	%Restart.pressed.connect(_on_restart_pressed)
 	%Continue.pressed.connect(_on_continue_pressed)
 
-	%Continue.visible = GameState.get_current_level() < (SceneManager.level_size() - 1)
+	%Continue.visible = false
+
+	if is_instance_valid(SceneManager.main):
+		%ScoreLabel.text = str(SceneManager.main.score)
 
 
 func _on_main_menu_pressed():

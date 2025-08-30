@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bbu5uksjc5rvn"
+path="res://.godot/imported/Arcade Metal.ogg-b8d5dd94a1f10e35841f353e3a4ddfd5.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/Arcade Metal.ogg"
+dest_files=["res://.godot/imported/Arcade Metal.ogg-b8d5dd94a1f10e35841f353e3a4ddfd5.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

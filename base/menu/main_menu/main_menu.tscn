@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmmq3qk054d8m"]
+[gd_scene load_steps=8 format=3 uid="uid://cmmq3qk054d8m"]
 
 [ext_resource type="Script" uid="uid://dcr3vuytcemx4" path="res://base/menu/main_menu/main_menu.gd" id="1_1jjd6"]
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_lue4o"]
 [ext_resource type="Script" uid="uid://c176p1imvld44" path="res://base/menu/main_menu/option_menu.gd" id="2_byskk"]
+[ext_resource type="Shader" uid="uid://dklw53lmp4rr4" path="res://game/shaders/animated_diamond_pattern.gdshader" id="3_lue4o"]
+[ext_resource type="AudioStream" uid="uid://ylsrhvia1of2" path="res://assets/music/as_fast_as_you_can_drams_bass.ogg" id="3_xq2ug"]
+[ext_resource type="Texture2D" uid="uid://d1k2fi1kv4iur" path="res://assets/itch/title.png" id="4_rk3xn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rk3xn"]
+shader = ExtResource("3_lue4o")
+shader_parameter/color1 = Color(0.223529, 0.223529, 0.223529, 1)
+shader_parameter/color2 = Color(0.12549, 0.12549, 0.12549, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -15,6 +23,9 @@ theme = ExtResource("1_lue4o")
 script = ExtResource("1_1jjd6")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xq2ug")
+autoplay = true
+bus = &"Music"
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1
@@ -24,6 +35,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+material = SubResource("ShaderMaterial_rk3xn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
 [node name="Background" type="TextureRect" parent="Menu"]
 layout_mode = 1
 anchors_preset = 15
@@ -31,8 +52,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_rk3xn")
 
 [node name="Label" type="Label" parent="Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -60,7 +83,7 @@ offset_right = 49.5
 offset_bottom = 135.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 150
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
 custom_minimum_size = Vector2(120, 0)
@@ -70,16 +93,19 @@ theme_override_constants/separation = 10
 [node name="NewGame" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
 text = "New Game"
 
 [node name="Options" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
 text = "Options"
 
 [node name="Quit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.964706, 0.803922, 0.14902, 1)
 text = "Quit"
 
 [node name="Option" type="Control" parent="."]
@@ -140,7 +166,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 1
-max_value = 20.0
+max_value = 2.0
 step = 0.1
 
 [node name="Music" type="HBoxContainer" parent="Option/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
@@ -157,7 +183,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 1
-max_value = 20.0
+max_value = 2.0
 step = 0.1
 
 [node name="SFX" type="HBoxContainer" parent="Option/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
@@ -174,7 +200,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 1
-max_value = 20.0
+max_value = 2.0
 step = 0.1
 
 [node name="Mute" type="HBoxContainer" parent="Option/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]

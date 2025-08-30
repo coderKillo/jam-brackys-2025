@@ -11,3 +11,5 @@ signal game_state_changed(state: Globals.GameState)
 signal ball_scored
 
 signal ball_died(position: Vector2)
+
+signal play_sound(sound: String)

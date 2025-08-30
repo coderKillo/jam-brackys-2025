@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=59 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
@@ -27,10 +27,22 @@
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
 [ext_resource type="Texture2D" uid="uid://d4b7cw2qqtm4l" path="res://assets/gui/glass.png" id="14_hhr1e"]
 [ext_resource type="Script" uid="uid://cyw1fm3561v0y" path="res://game/systems/punishment_manager.gd" id="15_es3kw"]
+[ext_resource type="Texture2D" uid="uid://f2g0m61ifqq1" path="res://assets/world/wall.png" id="16_jug8x"]
 [ext_resource type="Texture2D" uid="uid://cdcvdhcp3ksk5" path="res://assets/gui/frame.png" id="16_slhpv"]
+[ext_resource type="Texture2D" uid="uid://qr3ugrd47k7k" path="res://assets/traps/spikes.png" id="21_tjkco"]
+[ext_resource type="PackedScene" uid="uid://csif4ssvwmnub" path="res://game/systems/punishment/simple_cannon.tscn" id="22_4x2xe"]
 [ext_resource type="Texture2D" uid="uid://bmgykh2gud76x" path="res://assets/tutorial/tutorial1.png" id="23_cgvbc"]
+[ext_resource type="PackedScene" uid="uid://2sqh6jp5guid" path="res://game/systems/punishment/simple_laser.tscn" id="23_lpw87"]
 [ext_resource type="Texture2D" uid="uid://c4giskxr532jr" path="res://assets/tutorial/tutorial2.png" id="24_kyaiq"]
 [ext_resource type="Texture2D" uid="uid://b1s0gaxdeq7jw" path="res://assets/tutorial/tutorial3.png" id="25_kyaiq"]
+[ext_resource type="AudioStream" uid="uid://tpe1uemkl1rq" path="res://assets/sound_effects/ball_hit_wall.wav" id="36_ppoqn"]
+[ext_resource type="Script" uid="uid://tb12aq5hmt06" path="res://game/systems/sound_manager.gd" id="36_v5ckm"]
+[ext_resource type="AudioStream" uid="uid://bs8t85yydkn2v" path="res://assets/sound_effects/goal.ogg" id="37_v5ckm"]
+[ext_resource type="AudioStream" uid="uid://3pv3fq1otp3e" path="res://assets/sound_effects/lose.ogg" id="38_yjjss"]
+[ext_resource type="AudioStream" uid="uid://biwu2b7qno1s4" path="res://assets/sound_effects/points_collected.ogg" id="39_vqdf2"]
+[ext_resource type="AudioStream" uid="uid://dxlrft2e5mg7y" path="res://assets/sound_effects/select_trap.wav" id="40_3uxgc"]
+[ext_resource type="AudioStream" uid="uid://dfeu044xbrx87" path="res://assets/sound_effects/shoot_sound.wav" id="41_7ta8n"]
+[ext_resource type="AudioStream" uid="uid://dpdyfu8r57qnd" path="res://assets/music/bassy_tune.ogg" id="43_v5ckm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma400"]
 size = Vector2(9, 58)
@@ -84,10 +96,128 @@ shader_parameter/reflection_color = Color(0.964706, 0.803922, 0.14902, 0.290196)
 shader = ExtResource("13_57fuq")
 shader_parameter/refractionOffset = Vector2(32, 32)
 shader_parameter/reflectionOffset = Vector2(3, 3)
-shader_parameter/reflectionColor = Color(0.964706, 0.803922, 0.14902, 0.619608)
+shader_parameter/reflectionColor = Color(0.96, 0.7968, 0.144, 0.588235)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oh5ki"]
 normal = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jug8x"]
+size = Vector2(510, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjkco"]
+size = Vector2(509, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x2xe"]
+size = Vector2(16, 250)
+
+[sub_resource type="Animation" id="Animation_tjkco"]
+resource_name = "run"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 0), Vector2(22, 0), Vector2(22, 0), Vector2(528, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(15, 0), Vector2(520, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_4x2xe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lpw87"]
+_data = {
+&"RESET": SubResource("Animation_4x2xe"),
+&"run": SubResource("Animation_tjkco")
+}
 
 [node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui", "goal")]
 layout_mode = 3
@@ -170,11 +300,11 @@ shape = SubResource("CapsuleShape2D_b46tn")
 [node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
 position = Vector2(-232, 0)
 collision_mask = 12
-speed = 300.0
+speed = 200.0
 shoot_power = 1500.0
 
 [node name="Ball" parent="World" instance=ExtResource("4_bicih")]
-position = Vector2(-175, 0)
+position = Vector2(-192, 0)
 collision_mask = 15
 
 [node name="Camera2D" type="Camera2D" parent="World"]
@@ -232,6 +362,266 @@ shape = SubResource("WorldBoundaryShape2D_oh5ki")
 position = Vector2(-256, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_oh5ki")
+
+[node name="Punishments" type="Node2D" parent="World"]
+
+[node name="SmallRoomTop" type="Node2D" parent="World/Punishments"]
+visible = false
+position = Vector2(0, -96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Punishments/SmallRoomTop"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SmallRoomTop/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_jug8x")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SmallRoomTop"]
+z_index = 2
+texture = ExtResource("16_jug8x")
+
+[node name="SmallRoomBottom" type="Node2D" parent="World/Punishments"]
+visible = false
+position = Vector2(0, 96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Punishments/SmallRoomBottom"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SmallRoomBottom/StaticBody2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_jug8x")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SmallRoomBottom"]
+z_index = 2
+texture = ExtResource("16_jug8x")
+
+[node name="SpikeWallArray" type="Node2D" parent="World/Punishments"]
+visible = false
+rotation = 3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SpikeWallArray"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(-9.79135e-06, -112)
+rotation = 3.14159
+texture = ExtResource("21_tjkco")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 32)
+
+[node name="Sprite2D2" type="Sprite2D" parent="World/Punishments/SpikeWallArray"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(9.79135e-06, 112)
+texture = ExtResource("21_tjkco")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 32)
+
+[node name="Area2D" type="Area2D" parent="World/Punishments/SpikeWallArray"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SpikeWallArray/Area2D"]
+position = Vector2(1.04904e-05, 120)
+shape = SubResource("RectangleShape2D_tjkco")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Punishments/SpikeWallArray/Area2D"]
+position = Vector2(0, -121)
+shape = SubResource("RectangleShape2D_tjkco")
+disabled = true
+
+[node name="SpikeSquishArray" type="Node2D" parent="World/Punishments"]
+position = Vector2(-272, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SpikeSquishArray"]
+visible = false
+z_index = 1
+texture_repeat = 2
+position = Vector2(8, 0)
+rotation = 1.5708
+texture = ExtResource("21_tjkco")
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Punishments/SpikeSquishArray/Sprite2D"]
+position = Vector2(0, 531)
+scale = Vector2(0.6, 16.215)
+texture = ExtResource("16_jug8x")
+
+[node name="Area2D" type="Area2D" parent="World/Punishments/SpikeSquishArray"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Punishments/SpikeSquishArray/Area2D"]
+shape = SubResource("RectangleShape2D_4x2xe")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Punishments/SpikeSquishArray"]
+libraries = {
+&"": SubResource("AnimationLibrary_lpw87")
+}
+
+[node name="CannonArray" type="Node2D" parent="World/Punishments"]
+
+[node name="Node2D" type="Node2D" parent="World/Punishments/CannonArray"]
+position = Vector2(0, -152)
+rotation = 3.14159
+
+[node name="Cannon4" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(144, 0)
+
+[node name="Cannon5" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(112, 0)
+
+[node name="Cannon6" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(80, 0)
+
+[node name="Cannon7" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(48, 0)
+
+[node name="Cannon8" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(16, 0)
+
+[node name="Cannon9" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-16, 1.52588e-05)
+
+[node name="Cannon10" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-48, 1.52588e-05)
+
+[node name="Cannon11" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-80, 1.52588e-05)
+
+[node name="Cannon12" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-112, 3.05176e-05)
+
+[node name="Cannon13" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-144, 3.05176e-05)
+
+[node name="Cannon14" parent="World/Punishments/CannonArray/Node2D" instance=ExtResource("22_4x2xe")]
+position = Vector2(-176, 1.52588e-05)
+
+[node name="Node2D2" type="Node2D" parent="World/Punishments/CannonArray"]
+position = Vector2(0, 150)
+
+[node name="Cannon3" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(176, 0)
+
+[node name="Cannon4" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(144, 0)
+
+[node name="Cannon5" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(112, 0)
+
+[node name="Cannon6" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(80, 0)
+
+[node name="Cannon7" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(48, 0)
+
+[node name="Cannon8" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(16, 0)
+
+[node name="Cannon9" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(-16, 1.52588e-05)
+
+[node name="Cannon10" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(-48, 1.52588e-05)
+
+[node name="Cannon11" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(-80, 1.52588e-05)
+
+[node name="Cannon12" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(-112, 3.05176e-05)
+
+[node name="Cannon13" parent="World/Punishments/CannonArray/Node2D2" instance=ExtResource("22_4x2xe")]
+position = Vector2(-144, 3.05176e-05)
+
+[node name="LaserArray" type="Node2D" parent="World/Punishments"]
+
+[node name="Node2D" type="Node2D" parent="World/Punishments/LaserArray"]
+position = Vector2(0, -152)
+rotation = 3.14159
+
+[node name="Laser" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(144, 8.39259e-06)
+
+[node name="Laser2" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(112, 8.39259e-06)
+
+[node name="Laser3" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(80, 8.39259e-06)
+
+[node name="Laser4" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(48, 8.39259e-06)
+
+[node name="Laser5" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(16, 8.39259e-06)
+
+[node name="Laser6" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-16, 8.39259e-06)
+
+[node name="Laser7" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-16, 8.39259e-06)
+
+[node name="Laser8" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-48, 9.91897e-06)
+
+[node name="Laser9" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-80, 9.91897e-06)
+
+[node name="Laser10" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-112, 9.91897e-06)
+
+[node name="Laser11" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-144, 9.91897e-06)
+
+[node name="Laser12" parent="World/Punishments/LaserArray/Node2D" instance=ExtResource("23_lpw87")]
+position = Vector2(-176, 9.91897e-06)
+
+[node name="Node2D2" type="Node2D" parent="World/Punishments/LaserArray"]
+position = Vector2(65, 150)
+
+[node name="Laser2" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(112, 8.39259e-06)
+
+[node name="Laser3" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(80, 8.39259e-06)
+
+[node name="Laser4" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(48, 8.39259e-06)
+
+[node name="Laser5" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(16, 8.39259e-06)
+
+[node name="Laser6" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-16, 8.39259e-06)
+
+[node name="Laser7" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-16, 8.39259e-06)
+
+[node name="Laser8" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-48, 9.91897e-06)
+
+[node name="Laser9" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-80, 9.91897e-06)
+
+[node name="Laser10" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-112, 9.91897e-06)
+
+[node name="Laser11" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-144, 9.91897e-06)
+
+[node name="Laser12" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-176, 9.91897e-06)
+
+[node name="Laser13" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
+position = Vector2(-208, 9.91897e-06)
 
 [node name="Frame" type="Sprite2D" parent="."]
 z_index = 2
@@ -470,5 +860,47 @@ selector_overlay = NodePath("../../CanvasLayer/Gui/SelectorOverlay")
 [node name="PowerupManager" type="Node2D" parent="Managers"]
 script = ExtResource("14_gjp0b")
 
-[node name="PunishmentManager" type="Node2D" parent="Managers"]
+[node name="PunishmentManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("small_room_top", "small_room_bottom", "spike_wall_array", "spike_squish_array")]
 script = ExtResource("15_es3kw")
+small_room_top = NodePath("../../World/Punishments/SmallRoomTop")
+small_room_bottom = NodePath("../../World/Punishments/SmallRoomBottom")
+spike_wall_array = NodePath("../../World/Punishments/SpikeWallArray")
+spike_squish_array = NodePath("../../World/Punishments/SpikeSquishArray")
+
+[node name="SoundManager" type="Node2D" parent="Managers"]
+script = ExtResource("36_v5ckm")
+
+[node name="HitWall" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("36_ppoqn")
+bus = &"SFX"
+
+[node name="Goal" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("37_v5ckm")
+bus = &"SFX"
+
+[node name="Lose" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("38_yjjss")
+bus = &"SFX"
+
+[node name="Points" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("39_vqdf2")
+bus = &"SFX"
+
+[node name="SelectTrap" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("40_3uxgc")
+bus = &"SFX"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Managers/SoundManager"]
+process_mode = 3
+stream = ExtResource("41_7ta8n")
+bus = &"SFX"
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("43_v5ckm")
+autoplay = true
