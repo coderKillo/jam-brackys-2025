@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=60 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
@@ -12,16 +12,16 @@
 [ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="10_0h0lk"]
 [ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
-[ext_resource type="Shader" uid="uid://cfi56m878cu67" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
+[ext_resource type="Shader" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
 [ext_resource type="Script" uid="uid://dn3slwnlogxvr" path="res://game/gui/selector_overlay.gd" id="11_oh5ki"]
-[ext_resource type="Script" uid="uid://cjuufqj5di8ta" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
+[ext_resource type="Script" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
 [ext_resource type="Script" uid="uid://0o2ea28lxjg2" path="res://game/gui/score.gd" id="12_c8pys"]
 [ext_resource type="Script" uid="uid://bfpbp0kr8ycty" path="res://game/gui/top_bar.gd" id="12_es3kw"]
 [ext_resource type="Texture2D" uid="uid://7kc142xp73u6" path="res://assets/gui/top-bar.png" id="12_gjp0b"]
-[ext_resource type="Shader" uid="uid://dahjfv2vy6nc4" path="res://game/shaders/cracked.gdshader" id="12_htuni"]
+[ext_resource type="Shader" path="res://game/shaders/cracked.gdshader" id="12_htuni"]
 [ext_resource type="Script" uid="uid://dgw6ydarpusg8" path="res://game/systems/player_controller.gd" id="12_oh5ki"]
 [ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
-[ext_resource type="Shader" uid="uid://daj43aai0hwot" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
+[ext_resource type="Shader" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
 [ext_resource type="Texture2D" uid="uid://tkrrrksyx70h" path="res://assets/gui/top-bar-marker.png" id="13_es3kw"]
 [ext_resource type="Texture2D" uid="uid://cvbykowaaq7ay" path="res://assets/gui/space.png" id="13_l3rmk"]
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
@@ -31,12 +31,13 @@
 [ext_resource type="Texture2D" uid="uid://cdcvdhcp3ksk5" path="res://assets/gui/frame.png" id="16_slhpv"]
 [ext_resource type="Texture2D" uid="uid://qr3ugrd47k7k" path="res://assets/traps/spikes.png" id="21_tjkco"]
 [ext_resource type="PackedScene" uid="uid://csif4ssvwmnub" path="res://game/systems/punishment/simple_cannon.tscn" id="22_4x2xe"]
+[ext_resource type="Texture2D" uid="uid://c1r0d73q751vx" path="res://assets/test/saw-blade.png" id="22_yjjss"]
 [ext_resource type="Texture2D" uid="uid://bmgykh2gud76x" path="res://assets/tutorial/tutorial1.png" id="23_cgvbc"]
 [ext_resource type="PackedScene" uid="uid://2sqh6jp5guid" path="res://game/systems/punishment/simple_laser.tscn" id="23_lpw87"]
 [ext_resource type="Texture2D" uid="uid://c4giskxr532jr" path="res://assets/tutorial/tutorial2.png" id="24_kyaiq"]
 [ext_resource type="Texture2D" uid="uid://b1s0gaxdeq7jw" path="res://assets/tutorial/tutorial3.png" id="25_kyaiq"]
 [ext_resource type="AudioStream" uid="uid://tpe1uemkl1rq" path="res://assets/sound_effects/ball_hit_wall.wav" id="36_ppoqn"]
-[ext_resource type="Script" uid="uid://tb12aq5hmt06" path="res://game/systems/sound_manager.gd" id="36_v5ckm"]
+[ext_resource type="Script" path="res://game/systems/sound_manager.gd" id="36_v5ckm"]
 [ext_resource type="AudioStream" uid="uid://bs8t85yydkn2v" path="res://assets/sound_effects/goal.ogg" id="37_v5ckm"]
 [ext_resource type="AudioStream" uid="uid://3pv3fq1otp3e" path="res://assets/sound_effects/lose.ogg" id="38_yjjss"]
 [ext_resource type="AudioStream" uid="uid://biwu2b7qno1s4" path="res://assets/sound_effects/points_collected.ogg" id="39_vqdf2"]
@@ -110,6 +111,57 @@ size = Vector2(509, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4x2xe"]
 size = Vector2(16, 250)
 
+[sub_resource type="Animation" id="Animation_4x2xe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_tjkco"]
 resource_name = "run"
 length = 10.0
@@ -160,57 +212,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_4x2xe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(8, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lpw87"]
@@ -657,7 +658,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
+color = Color(0, 0, 0, 0.784314)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Gui/SelectorOverlay"]
 layout_mode = 1
@@ -673,18 +674,36 @@ theme_override_constants/margin_right = 100
 layout_mode = 2
 
 [node name="ContentLeft" type="ColorRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.964706, 0.803922, 0.14902, 0)
 
-[node name="LeftText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft"]
+[node name="LeftContainer" type="MarginContainer" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(110, 180)
+pivot_offset = Vector2(109, 180)
+theme_override_constants/margin_top = 120
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft/LeftContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LeftTexture" type="TextureRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft/LeftContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("22_yjjss")
+
+[node name="LeftText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentLeft/LeftContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Place a SAW BLADE"
 fit_content = true
@@ -692,20 +711,39 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ContentRight" type="ColorRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.964706, 0.803922, 0.14902, 0)
 
-[node name="RightText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight"]
+[node name="RightContainer" type="MarginContainer" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(110, 180)
+pivot_offset = Vector2(109, 180)
+theme_override_constants/margin_top = 120
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight/RightContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="RightTexture" type="TextureRect" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight/RightContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("22_yjjss")
+
+[node name="RightText" type="RichTextLabel" parent="CanvasLayer/Gui/SelectorOverlay/MarginContainer/HBoxContainer/ContentRight/RightContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Place a SAW BLADE"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 

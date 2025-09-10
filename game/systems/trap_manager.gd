@@ -10,12 +10,14 @@ signal trap_placed
 	Globals.Traps.SAW_BLADE:
 	{
 		scene = preload("res://game/entities/traps/saw_blade.tscn"),
+		icon = preload("res://assets/traps/icons/saw.png"),
 		text = "place a saw blade",
 		directions = [{text = "", value = 0.0}]
 	},
 	Globals.Traps.MOVING_SAW_BLADE:
 	{
 		scene = preload("res://game/entities/traps/saw_blade_moving.tscn"),
+		icon = preload("res://assets/traps/icons/saw-moving.png"),
 		text = "place a moving saw blade",
 		directions =
 		[
@@ -26,6 +28,7 @@ signal trap_placed
 	Globals.Traps.ROTATING_SAW_BLADE:
 	{
 		scene = preload("res://game/entities/traps/saw_blade_rotating.tscn"),
+		icon = preload("res://assets/traps/icons/saw-rotating.png"),
 		text = "place a rotating saw blade",
 		directions =
 		[
@@ -35,6 +38,7 @@ signal trap_placed
 	Globals.Traps.SPIKES:
 	{
 		scene = preload("res://game/entities/traps/spikes.tscn"),
+		icon = preload("res://assets/traps/icons/spikes.png"),
 		text = "place a spike",
 		directions =
 		[
@@ -47,6 +51,7 @@ signal trap_placed
 	Globals.Traps.HAMMER:
 	{
 		scene = preload("res://game/entities/traps/hammer.tscn"),
+		icon = preload("res://assets/traps/icons/hammer.png"),
 		text = "place a swinging hammer",
 		directions =
 		[
@@ -57,6 +62,7 @@ signal trap_placed
 	Globals.Traps.LASER:
 	{
 		scene = preload("res://game/entities/traps/laser.tscn"),
+		icon = preload("res://assets/traps/icons/laser.png"),
 		text = "place a laser gun",
 		directions =
 		[
@@ -69,6 +75,7 @@ signal trap_placed
 	Globals.Traps.CANNON:
 	{
 		scene = preload("res://game/entities/traps/cannon.tscn"),
+		icon = preload("res://assets/traps/icons/cannon.png"),
 		text = "place a cannon",
 		directions =
 		[
@@ -154,7 +161,9 @@ func select_trap(total_round: int):
 
 	selector_overlay.select(
 		_get_trap_text(option1, option1_direction.text),
-		_get_trap_text(option2, option2_direction.text)
+		_get_trap_text(option2, option2_direction.text),
+		trap_db[option1].icon,
+		trap_db[option2].icon
 	)
 	await selector_overlay.selected
 

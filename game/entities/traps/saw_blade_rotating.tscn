@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b7imyniksx0en"]
 
-[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_y3cay"]
+[ext_resource type="Script" path="res://game/systems/traps/trap.gd" id="1_y3cay"]
 [ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="2_ldagu"]
 [ext_resource type="Texture2D" uid="uid://butwuassq1vqn" path="res://assets/test/square-16x16.png" id="3_ah2fn"]
 [ext_resource type="Texture2D" uid="uid://dp41c4lvsbh1y" path="res://assets/traps/saw-blade-sheet.png" id="4_x4som"]
