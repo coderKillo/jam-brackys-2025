@@ -24,7 +24,7 @@ func _physics_process(delta):
 func disable(value: bool):
 	visible = not value
 	trap_detector_shape.set_deferred("disabled", value)
-	#collision_shape.set_deferred("disabled", value)
+	collision_shape.set_deferred("disabled", value)
 
 
 func _on_trap_entered(_area):

@@ -40,3 +40,4 @@ func active_player(active: bool):
 		ball.velocity = Vector2.ZERO
 		player.velocity = Vector2.ZERO
 		player.direction = Vector2.ZERO
+		reset_position()
