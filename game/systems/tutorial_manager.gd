@@ -13,10 +13,11 @@ func show_tutorial(index):
 	if index >= texture_resource.size():
 		return
 	texture.texture = texture_resource[index]
-	texture.modulate.a = 1.0
+	texture.modulate.a = 0.5
 	texture.show()
 
 
 func hide_tutorial(fade: float):
 	var tween = get_tree().create_tween()
 	tween.tween_property(texture, "modulate:a", 0.0, fade)
+	tween.tween_callback(texture.hide)
