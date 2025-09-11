@@ -14,6 +14,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if attached:
+		velocity = Vector2.ZERO
+		return
 	velocity = lerp(velocity, Vector2.ZERO, 0.02)
 	var collision = move_and_collide(velocity * delta)
 	if collision:

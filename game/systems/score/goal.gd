@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var partical: GPUParticles2D = $GPUParticles2D
+@onready var particle: GPUParticles2D = $GPUParticles2D
 
 
 func _ready():
@@ -18,5 +18,5 @@ func _on_ball_entered(body):
 	ScoreNumbers.display(score, global_position)
 	Events.score_added.emit(score)
 
-	partical.emitting = true
+	particle.emitting = true
 	Events.ball_scored.emit()
