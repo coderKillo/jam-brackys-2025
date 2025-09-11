@@ -19,6 +19,8 @@ func _on_body_entered(body):
 	var score = Globals.BASE_CELL_SCORE + Globals.ADDITIONAL_CELL_SCORE * ball.combo
 	ScoreNumbers.display(score, global_position)
 	Events.score_added.emit(score)
+	Events.camera_shake.emit(0.2)
+	Events.camera_freez_frame.emit()
 
 	ball.combo += 1
 

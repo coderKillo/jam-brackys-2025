@@ -41,6 +41,7 @@ func _physics_process(_delta):
 
 func _on_ball_entered(body):
 	Events.play_sound.emit("points")
+	Events.camera_shake.emit(0.1)
 	ball = body
 	ball.attached = true
 	ball.combo = 0
@@ -53,6 +54,7 @@ func shoot():
 	var view_direction = global_position.direction_to(get_global_mouse_position())
 	ball.velocity = view_direction * shoot_power * charge_timer
 	Events.play_sound.emit("shoot")
+	Events.camera_shake.emit(0.8 * charge_timer)
 
 	ball.attached = false
 	ball = null

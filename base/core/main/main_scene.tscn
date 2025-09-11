@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
 [ext_resource type="Shader" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
 [ext_resource type="Script" uid="uid://dn3slwnlogxvr" path="res://game/gui/selector_overlay.gd" id="11_oh5ki"]
-[ext_resource type="Script" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
+[ext_resource type="Script" uid="uid://cjuufqj5di8ta" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
 [ext_resource type="Script" uid="uid://0o2ea28lxjg2" path="res://game/gui/score.gd" id="12_c8pys"]
 [ext_resource type="Script" uid="uid://bfpbp0kr8ycty" path="res://game/gui/top_bar.gd" id="12_es3kw"]
 [ext_resource type="Texture2D" uid="uid://7kc142xp73u6" path="res://assets/gui/top-bar.png" id="12_gjp0b"]

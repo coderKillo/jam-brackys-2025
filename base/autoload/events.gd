@@ -13,3 +13,7 @@ signal ball_scored
 signal ball_died(position: Vector2)
 
 signal play_sound(sound: String)
+
+signal camera_shake(intensity: float)
+
+signal camera_freez_frame
