@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://n86chtsor72e"]
+[gd_scene load_steps=13 format=3 uid="uid://n86chtsor72e"]
 
-[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_og2xv"]
+[ext_resource type="Script" path="res://game/systems/traps/trap.gd" id="1_og2xv"]
 [ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="1_t2kr2"]
 [ext_resource type="Texture2D" uid="uid://dp41c4lvsbh1y" path="res://assets/traps/saw-blade-sheet.png" id="2_t2kr2"]
 
@@ -57,6 +57,9 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_og2xv"]
+polygon = PackedVector2Array(-3, 0, -3, -3, 3, -3, 3, 3, -3, 3)
+
 [node name="SawBlade" type="Area2D"]
 collision_layer = 4
 collision_mask = 0
@@ -85,3 +88,7 @@ z_index = 1
 sprite_frames = SubResource("SpriteFrames_jxr2d")
 autoplay = "default"
 frame_progress = 0.437474
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_og2xv")
+occluder_light_mask = 3

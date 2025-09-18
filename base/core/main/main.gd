@@ -22,6 +22,7 @@ var _current_game_state := Globals.GameState.SHOW_STORY
 
 
 func _ready():
+	Engine.time_scale = 1.0
 	SceneManager.main = self
 
 	tutorial_manager.set_process(false)

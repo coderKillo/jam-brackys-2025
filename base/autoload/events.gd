@@ -16,4 +16,4 @@ signal play_sound(sound: String)
 
 signal camera_shake(intensity: float)
 
-signal camera_freez_frame
+signal camera_freeze_frame

@@ -80,6 +80,7 @@ func _update_charge(delta):
 	if not _is_charging:
 		return
 	charge_timer += delta
+	Events.camera_shake.emit(0.2 * charge_timer)
 	if charge_timer >= max_charge_time:
 		shoot()
 

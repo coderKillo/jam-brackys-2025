@@ -1,12 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://baoa1h2p3uneu"]
+[gd_scene load_steps=17 format=3 uid="uid://baoa1h2p3uneu"]
 
-[ext_resource type="Script" uid="uid://bbxkvdw5dbv7" path="res://game/systems/traps/trap.gd" id="1_8byql"]
+[ext_resource type="Script" path="res://game/systems/traps/trap.gd" id="1_8byql"]
 [ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="1_e3e2l"]
 [ext_resource type="Texture2D" uid="uid://butwuassq1vqn" path="res://assets/test/square-16x16.png" id="2_8byql"]
 [ext_resource type="Texture2D" uid="uid://dp41c4lvsbh1y" path="res://assets/traps/saw-blade-sheet.png" id="2_8lqy3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax4ej"]
 radius = 12.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8byql"]
+polygon = PackedVector2Array(-3, 0, -3, -3, 3, -3, 3, 3, -3, 3)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_og2xv"]
 atlas = ExtResource("2_8lqy3")
@@ -137,6 +140,10 @@ texture = ExtResource("2_8byql")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["saw_punishment"]]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_ax4ej")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CollisionShape2D"]
+occluder = SubResource("OccluderPolygon2D_8byql")
+occluder_light_mask = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 z_index = 1

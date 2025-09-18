@@ -17,7 +17,7 @@ var _freeze_timer: Timer
 
 func _ready():
 	Events.ball_died.connect(_on_ball_died)
-	Events.camera_freez_frame.connect(_on_frame_freeze)
+	Events.camera_freeze_frame.connect(_on_frame_freeze)
 	Events.camera_shake.connect(_on_camera_shake)
 
 	_freeze_timer = Timer.new()

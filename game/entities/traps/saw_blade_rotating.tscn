@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7imyniksx0en"]
+[gd_scene load_steps=17 format=3 uid="uid://b7imyniksx0en"]
 
 [ext_resource type="Script" path="res://game/systems/traps/trap.gd" id="1_y3cay"]
 [ext_resource type="PackedScene" uid="uid://cyn44oep1wavd" path="res://game/systems/traps/collecting_pad.tscn" id="2_ldagu"]
@@ -57,6 +57,9 @@ animations = [{
 "name": &"default",
 "speed": 20.0
 }]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y3cay"]
+polygon = PackedVector2Array(-3, 0, -3, -3, 3, -3, 3, 3, -3, 3)
 
 [sub_resource type="Animation" id="Animation_loyts"]
 length = 0.001
@@ -173,6 +176,11 @@ frame_progress = 0.305893
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Axis" groups=["saw_punishment"]]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_ax4ej")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Axis"]
+position = Vector2(0, -32)
+occluder = SubResource("OccluderPolygon2D_y3cay")
+occluder_light_mask = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

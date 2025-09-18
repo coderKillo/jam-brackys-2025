@@ -1,67 +1,74 @@
 shader_type canvas_item;
 
-uniform float pixel_size : hint_range(4.0, 16.0) = 4.0;
-uniform int mix_sampling : hint_range(0, 2) = 0;
+uniform bool shader_enabled = true;
 
-varying float theta;
-varying vec2 block_size;
-
-vec2 get_neighbor_uv(int index, vec2 uv) {
-	switch (index) {
-		case 0:
-			return vec2(uv.x, uv.y + block_size.y);
-		case 1:
-			return vec2(uv.x, uv.y - block_size.y);
-		case 2:
-			return vec2(uv.x + block_size.x, uv.y);
-		case 3:
-			return vec2(uv.x - block_size.x, uv.y);
-		case 4:
-			return vec2(uv.x + block_size.x, uv.y + block_size.y);
-		case 5:
-			return vec2(uv.x + block_size.x, uv.y - block_size.y);
-		case 6:
-			return vec2(uv.x - block_size.x, uv.y + block_size.y);
-		case 7:
-			return vec2(uv.x - block_size.x, uv.y - block_size.y);
-		default:
-			return uv;
-	}
+uniform sampler2D palette;
+uniform bool dithering = false;
+uniform int dithering_size : hint_range(1, 16) = 2;
+uniform int resolution_scale : hint_range(1, 64) = 2;
+uniform int quantization_level : hint_range(2, 16) = 16;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+int dithering_pattern(ivec2 fragcoord) {
+	const int pattern[] = {
+		-4, +0, -3, +1,
+		+2, -2, +3, -1,
+		-3, +1, -4, +0,
+		+3, -1, +2, -2
+	};
+	int x = fragcoord.x % 4;
+	int y = fragcoord.y % 4;
+	return pattern[y * 4 + x] * dithering_size;
 }
 
-void vertex() {
-	theta = atan(MODEL_MATRIX[0][1], MODEL_MATRIX[0][0]);
-	block_size = vec2(pixel_size * TEXTURE_PIXEL_SIZE.x / length(MODEL_MATRIX[0].xy),
-				 pixel_size * TEXTURE_PIXEL_SIZE.y / length(MODEL_MATRIX[1].xy));
+float color_distance(vec3 a, vec3 b) {
+	vec3 diff = a - b;
+	return dot(diff, diff);
+}
+
+vec3 quantize_color(vec3 color, int levels) {
+	if (levels <= 1) return vec3(0.0);
+	float step = 1.0 / float(levels - 1);
+	return round(color / step) * step;
 }
 
 void fragment() {
-	mat2 rotation = mat2(vec2(cos(theta), sin(theta)), vec2(-sin(theta), cos(theta)));
-	mat2 inverse_rotation = mat2(vec2(cos(theta), -sin(theta)), vec2(sin(theta), cos(theta)));
+	vec4 final_color;
 
-	vec2 uv = inverse_rotation * (floor(rotation * ((UV - 0.5) / block_size)) + 0.5) * block_size + 0.5;
-	vec4 color = texture(TEXTURE, uv);
+	if (!shader_enabled) {
+		final_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	} else {
+		vec2 tex_size = vec2(textureSize(SCREEN_TEXTURE, 0));
 
-	if (mix_sampling > 0) {
-		vec4 min_color = texture(TEXTURE, get_neighbor_uv(0, uv));
-		float min_difference = length(color - min_color);
-		for (int i = 1; i < 4 * mix_sampling; i++) {
-			vec4 neighbor_color = texture(TEXTURE, get_neighbor_uv(i, uv));
-			float difference = length(color - neighbor_color);
-			if (difference < min_difference) {
-				min_color = neighbor_color;
-				min_difference = difference;
+		if (tex_size.x <= 0.0 || tex_size.y <= 0.0) {
+			final_color = vec4(0.0);
+		} else {
+			ivec2 texel_coord = ivec2(floor(SCREEN_UV * tex_size / float(resolution_scale)));
+			vec3 color = texelFetch(SCREEN_TEXTURE, texel_coord * resolution_scale, 0).rgb;
+
+			if (dithering) {
+				int dither = dithering_pattern(texel_coord);
+				color += vec3(float(dither) / 255.0);
 			}
+			color = clamp(color, 0.0, 1.0);
+			color = quantize_color(color, quantization_level);
+
+			int palette_size = 16;
+			float closest_distance = 9999.0;
+			vec4 closest_color = vec4(0.0);
+
+			for (int i = 0; i < palette_size; i++) {
+				float u = float(i) / float(palette_size - 1);
+				vec3 palette_color = texture(palette, vec2(u, 0.0)).rgb;
+				float dist = color_distance(color, palette_color);
+				if (dist < closest_distance) {
+					closest_distance = dist;
+					closest_color = vec4(palette_color, 1.0);
+				}
+			}
+
+			final_color = closest_color;
 		}
-		color = min_color;
 	}
 
-	float cut_x = max(abs(rotation[0][0] + rotation[0][1]), abs(inverse_rotation[0][0] + inverse_rotation[0][1])) * block_size.x * 0.5;
-	float cut_y = max(abs(rotation[1][0] + rotation[1][1]), abs(inverse_rotation[1][0] + inverse_rotation[1][1])) * block_size.y * 0.5;
-	if (uv.x < cut_x || uv.x > 1.0 - cut_x || uv.y < cut_y || uv.y > 1.0 - cut_y)
-		color.a = 0.0;
-	else
-		color.a = step(0.5, color.a);
-
-	COLOR = color;
+	COLOR = final_color;
 }

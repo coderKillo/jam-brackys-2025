@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b6pacd4qux0r0"]
+[gd_scene load_steps=75 format=3 uid="uid://b6pacd4qux0r0"]
 
 [ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://assets/gui_assets/waste_no_space.theme" id="1_6icyu"]
 [ext_resource type="Script" uid="uid://xwkwmj6gqkg7" path="res://base/core/main/main.gd" id="1_awp0h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://df1ukairx6efa" path="res://game/systems/traps/grid.gd" id="3_ax4ej"]
 [ext_resource type="Texture2D" uid="uid://bkvowljdtlyuf" path="res://assets/test/grid-16x8.png" id="3_bicih"]
 [ext_resource type="PackedScene" uid="uid://deh2o03bcjuyk" path="res://game/entities/ball/ball.tscn" id="4_bicih"]
+[ext_resource type="Texture2D" uid="uid://wpaxuo7jaaif" path="res://assets/test/grid-16x8-normal.png" id="5_3uxgc"]
 [ext_resource type="Script" uid="uid://bdgh87rfiuuqj" path="res://game/systems/score/goal.gd" id="6_b46tn"]
 [ext_resource type="Texture2D" uid="uid://k2wc6b6s26fs" path="res://assets/world/goal.png" id="7_b46tn"]
 [ext_resource type="Texture2D" uid="uid://hy1v5rynyhhi" path="res://assets/test/test-tutorial-text.png" id="7_w3pcb"]
@@ -18,9 +19,11 @@
 [ext_resource type="Script" uid="uid://0o2ea28lxjg2" path="res://game/gui/score.gd" id="12_c8pys"]
 [ext_resource type="Script" uid="uid://bfpbp0kr8ycty" path="res://game/gui/top_bar.gd" id="12_es3kw"]
 [ext_resource type="Texture2D" uid="uid://7kc142xp73u6" path="res://assets/gui/top-bar.png" id="12_gjp0b"]
-[ext_resource type="Shader" path="res://game/shaders/cracked.gdshader" id="12_htuni"]
+[ext_resource type="Shader" uid="uid://dahjfv2vy6nc4" path="res://game/shaders/cracked.gdshader" id="12_htuni"]
 [ext_resource type="Script" uid="uid://dgw6ydarpusg8" path="res://game/systems/player_controller.gd" id="12_oh5ki"]
+[ext_resource type="Shader" uid="uid://2vxpd6kr1lem" path="res://game/shaders/chromatic_aberration.gdshader" id="13_3uxgc"]
 [ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
+[ext_resource type="Shader" uid="uid://bm210w6ulxa7b" path="res://game/shaders/blast_wave.gdshader" id="13_7ta8n"]
 [ext_resource type="Shader" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
 [ext_resource type="Texture2D" uid="uid://tkrrrksyx70h" path="res://assets/gui/top-bar-marker.png" id="13_es3kw"]
 [ext_resource type="Texture2D" uid="uid://cvbykowaaq7ay" path="res://assets/gui/space.png" id="13_l3rmk"]
@@ -45,6 +48,54 @@
 [ext_resource type="AudioStream" uid="uid://dfeu044xbrx87" path="res://assets/sound_effects/shoot_sound.wav" id="41_7ta8n"]
 [ext_resource type="AudioStream" uid="uid://dpdyfu8r57qnd" path="res://assets/music/bassy_tune.ogg" id="43_v5ckm"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ta8n"]
+shader = ExtResource("13_7ta8n")
+shader_parameter/global_position = Vector2(640, 180)
+shader_parameter/screen_size = Vector2(640, 360)
+shader_parameter/force = 0.12
+shader_parameter/size = 0.0
+shader_parameter/thickness = 0.065
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7ta8n"]
+diffuse_texture = ExtResource("3_bicih")
+normal_texture = ExtResource("5_3uxgc")
+
+[sub_resource type="Animation" id="Animation_7ta8n"]
+resource_name = "wave"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+
+[sub_resource type="Animation" id="Animation_rm3x5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r1tr2"]
+_data = {
+&"RESET": SubResource("Animation_rm3x5"),
+&"wave": SubResource("Animation_7ta8n")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ma400"]
 size = Vector2(9, 58)
 
@@ -59,16 +110,51 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(1, 32, 1)
 direction = Vector3(-1, 0, 0)
-initial_velocity_min = 100.0
+spread = 40.0
+initial_velocity_min = 50.0
 initial_velocity_max = 300.0
-gravity = Vector3(100, 0, 0)
 scale_min = 2.0
 scale_max = 2.0
+scale_over_velocity_min = 100.0
+scale_over_velocity_max = 258.1
 color_ramp = SubResource("GradientTexture1D_4jeu6")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b46tn"]
 radius = 4.0
 height = 16.0
+
+[sub_resource type="Gradient" id="Gradient_3uxgc"]
+offsets = PackedFloat32Array(0.53913, 0.927536)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3uxgc"]
+gradient = SubResource("Gradient_3uxgc")
+width = 400
+height = 465
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.457051, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3uxgc"]
+polygon = PackedVector2Array(-7, -32, 20, -32, 20, -24, -7, -24, -8, -26, -8, -31)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rm3x5"]
+gradient = SubResource("Gradient_3uxgc")
+width = 1025
+height = 505
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.488356)
+fill_to = Vector2(0.0128205, 0.709402)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ta8n"]
+gradient = SubResource("Gradient_3uxgc")
+width = 200
+height = 200
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.488356)
+fill_to = Vector2(0.0128205, 0.709402)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_htuni"]
 shader = ExtResource("11_eb0yd")
@@ -78,6 +164,12 @@ shader_parameter/slice_distance = 0.0
 shader_parameter/pixel_size = 1.0
 shader_parameter/expansion_factor = 0.5
 shader_parameter/border_color = Vector4(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uxgc"]
+shader = ExtResource("13_3uxgc")
+shader_parameter/r_displacement = Vector2(1, 0)
+shader_parameter/g_displacement = Vector2(0, 1)
+shader_parameter/b_displacement = Vector2(-1, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb0yd"]
 shader = ExtResource("12_htuni")
@@ -220,6 +312,13 @@ _data = {
 &"run": SubResource("Animation_tjkco")
 }
 
+[sub_resource type="Environment" id="Environment_7ta8n"]
+background_mode = 3
+glow_enabled = true
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.2
+
 [node name="MainScene" type="Control" node_paths=PackedStringArray("level_container", "gui", "goal")]
 layout_mode = 3
 anchors_preset = 15
@@ -255,7 +354,15 @@ color = Color(0.12549, 0.12549, 0.12549, 1)
 script = ExtResource("3_ax4ej")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Grid"]
-texture = ExtResource("3_bicih")
+light_mask = 3
+visibility_layer = 3
+material = SubResource("ShaderMaterial_7ta8n")
+texture = SubResource("CanvasTexture_7ta8n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Grid"]
+libraries = {
+&"": SubResource("AnimationLibrary_r1tr2")
+}
 
 [node name="Goal" type="Area2D" parent="World"]
 position = Vector2(248, 0)
@@ -273,7 +380,7 @@ shape = SubResource("RectangleShape2D_ma400")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="World/Goal"]
 emitting = false
-amount = 48
+amount = 40
 texture = ExtResource("10_0h0lk")
 lifetime = 2.0
 one_shot = true
@@ -298,6 +405,86 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Goal/Pillar2"]
 shape = SubResource("CapsuleShape2D_b46tn")
 
+[node name="PointLight2D2" type="PointLight2D" parent="World/Goal"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(25.75, 1)
+scale = Vector2(0.771666, 0.762724)
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 3.0
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_3uxgc")
+texture_scale = 0.75
+height = 20.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="World/Goal"]
+occluder = SubResource("OccluderPolygon2D_3uxgc")
+occluder_light_mask = 3
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="World/Goal"]
+position = Vector2(0, 57)
+occluder = SubResource("OccluderPolygon2D_3uxgc")
+occluder_light_mask = 3
+
+[node name="PointLight2D" type="PointLight2D" parent="World"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-256, -126)
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 0.5
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_rm3x5")
+height = 10.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="World"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(257, -128)
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 0.5
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_rm3x5")
+height = 10.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="World"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-256, 127)
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 0.5
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_rm3x5")
+height = 10.0
+
+[node name="PointLight2D4" type="PointLight2D" parent="World"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+light_mask = 2
+visibility_layer = 2
+position = Vector2(256, 127)
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 0.5
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_rm3x5")
+height = 10.0
+
 [node name="Player" parent="World" instance=ExtResource("3_3p8nd")]
 position = Vector2(-232, 0)
 collision_mask = 12
@@ -308,12 +495,37 @@ shoot_power = 1500.0
 position = Vector2(-192, 0)
 collision_mask = 15
 
+[node name="PointLight2D" type="PointLight2D" parent="World/Ball"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+light_mask = 2
+visibility_layer = 2
+color = Color(2.762, 1.657, 0.552, 1)
+energy = 1.5
+range_z_max = 1
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.906)
+texture = SubResource("GradientTexture2D_7ta8n")
+height = 10.0
+
 [node name="Camera2D" type="Camera2D" parent="World"]
 material = SubResource("ShaderMaterial_htuni")
 script = ExtResource("12_5r02l")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="World/Camera2D"]
 layer = 2
+
+[node name="ChromaticAberration" type="ColorRect" parent="World/Camera2D/CanvasLayer"]
+material = SubResource("ShaderMaterial_3uxgc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="World/Camera2D/CanvasLayer"]
 visible = false
@@ -623,6 +835,9 @@ position = Vector2(-176, 9.91897e-06)
 
 [node name="Laser13" parent="World/Punishments/LaserArray/Node2D2" instance=ExtResource("23_lpw87")]
 position = Vector2(-208, 9.91897e-06)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_7ta8n")
 
 [node name="Frame" type="Sprite2D" parent="."]
 z_index = 2
