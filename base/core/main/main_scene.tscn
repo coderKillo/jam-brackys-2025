@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://25kjqdwjj4ly" path="res://assets/test/square-2x2.png" id="10_0h0lk"]
 [ext_resource type="Script" uid="uid://dpm8jvlp0b73v" path="res://game/systems/tutorial_manager.gd" id="10_ax4ej"]
 [ext_resource type="Script" uid="uid://cd6nmiyxc3tlw" path="res://game/systems/story_manager.gd" id="11_0h0lk"]
-[ext_resource type="Shader" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
+[ext_resource type="Shader" uid="uid://cfi56m878cu67" path="res://game/shaders/slice.gdshader" id="11_eb0yd"]
 [ext_resource type="Script" uid="uid://dn3slwnlogxvr" path="res://game/gui/selector_overlay.gd" id="11_oh5ki"]
 [ext_resource type="Script" uid="uid://cjuufqj5di8ta" path="res://base/core/main/camera_2d.gd" id="12_5r02l"]
 [ext_resource type="Script" uid="uid://0o2ea28lxjg2" path="res://game/gui/score.gd" id="12_c8pys"]
@@ -24,7 +24,7 @@
 [ext_resource type="Shader" uid="uid://2vxpd6kr1lem" path="res://game/shaders/chromatic_aberration.gdshader" id="13_3uxgc"]
 [ext_resource type="Script" uid="uid://ckky67hdapii0" path="res://game/systems/trap_manager.gd" id="13_4jeu6"]
 [ext_resource type="Shader" uid="uid://bm210w6ulxa7b" path="res://game/shaders/blast_wave.gdshader" id="13_7ta8n"]
-[ext_resource type="Shader" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
+[ext_resource type="Shader" uid="uid://daj43aai0hwot" path="res://game/shaders/brocken_glass.gdshader" id="13_57fuq"]
 [ext_resource type="Texture2D" uid="uid://tkrrrksyx70h" path="res://assets/gui/top-bar-marker.png" id="13_es3kw"]
 [ext_resource type="Texture2D" uid="uid://cvbykowaaq7ay" path="res://assets/gui/space.png" id="13_l3rmk"]
 [ext_resource type="Script" uid="uid://ca4h5pahkh88f" path="res://game/systems/powerup_manager.gd" id="14_gjp0b"]
@@ -40,7 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://c4giskxr532jr" path="res://assets/tutorial/tutorial2.png" id="24_kyaiq"]
 [ext_resource type="Texture2D" uid="uid://b1s0gaxdeq7jw" path="res://assets/tutorial/tutorial3.png" id="25_kyaiq"]
 [ext_resource type="AudioStream" uid="uid://tpe1uemkl1rq" path="res://assets/sound_effects/ball_hit_wall.wav" id="36_ppoqn"]
-[ext_resource type="Script" path="res://game/systems/sound_manager.gd" id="36_v5ckm"]
+[ext_resource type="Script" uid="uid://tb12aq5hmt06" path="res://game/systems/sound_manager.gd" id="36_v5ckm"]
 [ext_resource type="AudioStream" uid="uid://bs8t85yydkn2v" path="res://assets/sound_effects/goal.ogg" id="37_v5ckm"]
 [ext_resource type="AudioStream" uid="uid://3pv3fq1otp3e" path="res://assets/sound_effects/lose.ogg" id="38_yjjss"]
 [ext_resource type="AudioStream" uid="uid://biwu2b7qno1s4" path="res://assets/sound_effects/points_collected.ogg" id="39_vqdf2"]
@@ -60,21 +60,6 @@ shader_parameter/thickness = 0.065
 diffuse_texture = ExtResource("3_bicih")
 normal_texture = ExtResource("5_3uxgc")
 
-[sub_resource type="Animation" id="Animation_7ta8n"]
-resource_name = "wave"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 2.0]
-}
-
 [sub_resource type="Animation" id="Animation_rm3x5"]
 length = 0.001
 tracks/0/type = "value"
@@ -88,6 +73,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7ta8n"]
+resource_name = "wave"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r1tr2"]

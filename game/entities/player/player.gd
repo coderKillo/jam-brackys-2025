@@ -53,6 +53,8 @@ func shoot():
 		return
 	var view_direction = global_position.direction_to(get_global_mouse_position())
 	ball.velocity = view_direction * shoot_power * charge_timer
+	ball.particles.emitting = true
+	ball.particles.restart()
 	Events.play_sound.emit("shoot")
 	Events.camera_shake.emit(0.8 * charge_timer)
 

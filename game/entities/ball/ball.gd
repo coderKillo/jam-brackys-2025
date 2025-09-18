@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var detector: Area2D = $TrapDetector
 @onready var trap_detector_shape: CollisionShape2D = $TrapDetector/CollisionShape2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var particles: GPUParticles2D = $GPUParticles2D
 
 var attached := true
 var combo = 0
@@ -11,6 +12,8 @@ var combo = 0
 
 func _ready():
 	detector.area_entered.connect(_on_trap_entered)
+	particles.emitting = true
+	particles.restart()
 
 
 func _physics_process(delta):
@@ -20,6 +23,9 @@ func _physics_process(delta):
 	velocity = lerp(velocity, Vector2.ZERO, 0.02)
 	var collision = move_and_collide(velocity * delta)
 	if collision:
+		particles.emitting = true
+		particles.restart()
+		Events.camera_shake.emit(0.4)
 		Events.play_sound.emit("hit_wall")
 		velocity = velocity.bounce(collision.get_normal())
 

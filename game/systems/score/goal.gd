@@ -4,6 +4,8 @@ extends Area2D
 
 
 func _ready():
+	particle.emitting = true
+	particle.restart()
 	body_entered.connect(_on_ball_entered)
 
 

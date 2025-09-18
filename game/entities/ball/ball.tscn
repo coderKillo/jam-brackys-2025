@@ -1,12 +1,40 @@
-[gd_scene load_steps=7 format=3 uid="uid://deh2o03bcjuyk"]
+[gd_scene load_steps=12 format=3 uid="uid://deh2o03bcjuyk"]
 
 [ext_resource type="Script" uid="uid://bv2acjca7ih7b" path="res://game/entities/ball/ball.gd" id="1_ln8x8"]
 [ext_resource type="Script" uid="uid://ckelp87vk38tt" path="res://game/entities/components/trace_line/trace_line.gd" id="2_7fep7"]
+[ext_resource type="Texture2D" uid="uid://bse5702oemnyx" path="res://assets/effects/smoke.png" id="3_7fep7"]
 [ext_resource type="Texture2D" uid="uid://cbs0pmerny7gd" path="res://assets/entities/ball.png" id="3_ln8x8"]
 
 [sub_resource type="Curve" id="Curve_dn4rf"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5cvb4"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_7fep7"]
+_data = [Vector2(0, 0.617978), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5cvb4"]
+curve = SubResource("Curve_7fep7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5cvb4"]
+lifetime_randomness = 0.7
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, -10, 0)
+scale_max = 1.5
+alpha_curve = SubResource("CurveTexture_5cvb4")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6lyvc"]
 radius = 7.0
@@ -30,6 +58,17 @@ default_color = Color(0.964706, 0.803922, 0.14902, 1)
 end_cap_mode = 2
 script = ExtResource("2_7fep7")
 body = NodePath("..")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_5cvb4")
+emitting = false
+amount = 5
+texture = ExtResource("3_7fep7")
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_5cvb4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1.5, 1.5, 1.5, 1)
