@@ -5,6 +5,10 @@ extends CharacterBody2D
 @export var shoot_power = 300.0
 @export var max_charge_time = 1.0
 
+@export_group("Dash")
+@export var dash_speed = 800.0
+@export var dash_time = 0.1
+
 @onready var ball_collect: Area2D = $CollectBallArea
 @onready var ball_slot: Node2D = $RotationAxis/BallSlot
 @onready var rotation_axis: Node2D = $RotationAxis
@@ -13,9 +17,11 @@ extends CharacterBody2D
 
 var ball: Ball
 var charge_timer: float = 0.0
+var dash_timer: float = 0.0
 
 var direction: Vector2 = Vector2.ZERO
 var _is_charging: bool = false
+var _tween: Tween
 
 
 func _ready():
@@ -30,8 +36,10 @@ func _process(delta):
 	_update_charge(delta)
 
 
-func _physics_process(_delta):
-	if direction:
+func _physics_process(delta):
+	if dash_timer > 0.0:
+		dash_timer -= delta
+	elif direction:
 		velocity = direction * speed
 	else:
 		velocity = Vector2.ZERO
@@ -73,9 +81,24 @@ func charge():
 	_is_charging = true
 
 
+func dash():
+	velocity = velocity.normalized() * dash_speed
+	if _tween:
+		_tween.stop()
+		_tween = create_tween()
+		_tween.tween_property(self, "velocity", velocity, dash_time).set_ease(Tween.EASE_OUT).from(
+			velocity.normalized() * dash_speed
+		)
+	dash_timer = dash_time
+
+
 func disable(value: bool):
 	visible = not value
 	trap_detector_shape.set_deferred("disabled", value)
+
+
+func _is_dashing() -> bool:
+	return _tween and _tween.is_running()
 
 
 func _update_charge(delta):

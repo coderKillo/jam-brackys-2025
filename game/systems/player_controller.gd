@@ -20,6 +20,9 @@ func _process(_delta):
 	if Input.is_action_just_released("shoot"):
 		player.shoot()
 
+	if Input.is_action_just_pressed("dash"):
+		player.dash()
+
 
 func reset_position():
 	player.global_position = player_start_position
